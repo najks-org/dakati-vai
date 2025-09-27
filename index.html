@@ -3,25 +3,83 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ডাকাতি ভাই Ultimate Pack</title>
+    <title>DAKATI VAI Ultimate Pack</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
+        html {
+            scroll-behavior: smooth;
+        }
         body {
             font-family: 'Hind Siliguri', sans-serif;
-            background-color: #0f172a; /* Fallback bg */
-            background-image: linear-gradient(315deg, #0f172a 0%, #1e293b 74%, #334155 100%);
-            animation: gradient-animation 20s ease infinite;
-            background-size: 400% 400%;
+            background-color: #0f172a;
+            background-image: linear-gradient(315deg, #020617 0%, #0f172a 74%);
+            min-height: 100vh;
+            cursor: none;
+        }
+        
+        /* Custom Cursor */
+        .cursor-dot, .cursor-outline {
+            pointer-events: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+            opacity: 1;
+            transition: opacity 0.3s ease-in-out, transform 0.2s ease-in-out;
+            z-index: 9999;
+        }
+        .cursor-dot {
+            width: 8px;
+            height: 8px;
+            background-color: #ec4899;
+        }
+        .cursor-outline {
+            width: 40px;
+            height: 40px;
+            border: 2px solid #38bdf8;
+        }
+        .cursor-dot.hidden, .cursor-outline.hidden {
+            opacity: 0;
+        }
+        .cursor-outline.hovered {
+            transform: translate(-50%, -50%) scale(1.5);
+             border-color: #86efac;
         }
 
-        @keyframes gradient-animation {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
+
+        /* Preloader */
+        #preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #0f172a;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+            transition: opacity 0.5s ease-out, visibility 0.5s ease-out;
+        }
+        #preloader.loaded {
+            opacity: 0;
+            visibility: hidden;
+        }
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid #334155;
+            border-top-color: #38bdf8;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
         }
 
         .gradient-text {
@@ -32,10 +90,17 @@
             color: transparent;
             background-size: 200% auto;
             animation: text-shine 5s linear infinite;
+            text-shadow: 0 0 15px rgba(236, 72, 153, 0.4), 0 0 25px rgba(56, 189, 248, 0.4);
         }
         
         @keyframes text-shine {
             to { background-position: 200% center; }
+        }
+        
+        nav { box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1); }
+
+        .card-container {
+             perspective: 1000px;
         }
 
         .card {
@@ -43,176 +108,405 @@
             border: 1px solid #334155;
             position: relative;
             overflow: hidden;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            transform-style: preserve-3d;
         }
 
-        .card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-        }
+        /* Section-specific glows */
+        #icons .card:hover { box-shadow: 0 10px 40px rgba(56, 189, 248, 0.3); }
+        #video-assets .card:hover { box-shadow: 0 10px 40px rgba(236, 72, 153, 0.3); }
+        #sound-effects .card:hover { box-shadow: 0 10px 40px rgba(45, 212, 191, 0.3); }
+        #thumbnail .card:hover { box-shadow: 0 10px 40px rgba(16, 185, 129, 0.3); }
+        #smart-pack .card:hover { box-shadow: 0 10px 40px rgba(139, 92, 246, 0.3); }
+        #software .card:hover { box-shadow: 0 10px 40px rgba(251, 191, 36, 0.3); }
+        #ai .card:hover { box-shadow: 0 10px 40px rgba(251, 146, 60, 0.3); }
 
-        .card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: conic-gradient(from 180deg at 50% 50%, #ec4899, #38bdf8, #86efac, #ec4899);
-            z-index: 1;
-            opacity: 0;
-            transition: opacity 0.4s ease-in-out;
-            animation: rotate 4s linear infinite;
-        }
 
-        .card:hover::before {
-            opacity: 1;
-        }
+        #icons h2 { text-shadow: 0 0 12px rgba(56, 189, 248, 0.5); }
+        #video-assets h2 { text-shadow: 0 0 12px rgba(236, 72, 153, 0.5); }
+        #sound-effects h2 { text-shadow: 0 0 12px rgba(45, 212, 191, 0.5); }
+        #thumbnail h2 { text-shadow: 0 0 12px rgba(16, 185, 129, 0.5); }
+        #smart-pack h2 { text-shadow: 0 0 12px rgba(139, 92, 246, 0.5); }
+        #software h2 { text-shadow: 0 0 12px rgba(251, 191, 36, 0.5); }
+        #ai h2 { text-shadow: 0 0 12px rgba(251, 146, 60, 0.5); }
 
-        @keyframes rotate {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
 
         .card-content {
             position: relative;
-            z-index: 2;
             background: #1e293b;
-            margin: 2px;
             padding: 1.5rem;
-            border-radius: 0.5rem; /* Match parent's border-radius */
-            height: calc(100% - 4px);
+            border-radius: 0.5rem;
+            height: 100%;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
+            transform: translateZ(20px);
         }
         
-        /* Scroll Animation */
         .reveal {
             opacity: 0;
             transform: translateY(30px);
             transition: opacity 0.8s ease-out, transform 0.8s ease-out;
         }
-        .reveal.visible {
-            opacity: 1;
-            transform: translateY(0);
+        .reveal.visible { opacity: 1; transform: translateY(0); }
+        
+        #to-top-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out, transform 0.3s ease;
         }
+        #to-top-btn.show { opacity: 1; visibility: visible; }
+        #to-top-btn:hover { transform: scale(1.1); }
 
     </style>
 </head>
 <body class="bg-slate-900 text-slate-200">
 
+    <!-- Preloader -->
+    <div id="preloader"><div class="spinner"></div></div>
+    
+    <!-- Custom Cursor -->
+    <div class="cursor-dot"></div>
+    <div class="cursor-outline"></div>
+
     <!-- Header Section -->
     <header class="text-center py-12 md:py-20 border-b border-slate-700">
         <div class="container mx-auto px-4">
-            <h1 class="text-4xl md:text-6xl font-bold gradient-text mb-4"> DAKATI VAI Ultimate Pack</h1>
+            <h1 class="text-4xl md:text-6xl font-bold gradient-text mb-4">DAKATI VAI Ultimate Pack</h1>
             <p class="text-lg md:text-xl text-slate-400 max-w-3xl mx-auto">আপনার ভিডিও এডিটিং এবং থাম্বনেইল ডিজাইনের জন্য প্রয়োজনীয় সবকিছু এখানে!</p>
         </div>
     </header>
 
-    <!-- Quick Links Navigation -->
-    <nav class="sticky top-0 z-50 bg-slate-900/80 backdrop-blur-lg border-b border-slate-700/50">
-        <div class="container mx-auto px-4 py-3">
-            <div class="flex justify-center items-center space-x-4 md:space-x-8 text-sm md:text-base">
-                <a href="#icons" class="text-slate-300 hover:text-cyan-400 transition-colors duration-300 font-medium">আইকন ও লোগো</a>
-                <a href="#video-assets" class="text-slate-300 hover:text-pink-400 transition-colors duration-300 font-medium">ভিডিও অ্যাসেট</a>
-                <a href="#thumbnail" class="text-slate-300 hover:text-emerald-400 transition-colors duration-300 font-medium">থাম্বনেইল</a>
-                <a href="#smart-pack" class="text-slate-300 hover:text-violet-400 transition-colors duration-300 font-medium">স্মার্ট প্যাক</a>
-                <a href="#software" class="text-slate-300 hover:text-amber-400 transition-colors duration-300 font-medium">সফটওয়্যার</a>
+    <!-- Navigation & Search -->
+    <div class="sticky top-0 z-50 bg-slate-900/80 backdrop-blur-lg border-b border-slate-700/50">
+        <div class="container mx-auto px-4 py-3 flex flex-col md:flex-row justify-center items-center">
+            <nav class="flex-grow">
+                <div class="flex flex-wrap justify-center items-center space-x-4 md:space-x-6 text-sm md:text-base">
+                    <a href="#icons" class="text-slate-300 hover:text-cyan-400 transition-colors duration-300 font-medium">আইকন</a>
+                    <a href="#video-assets" class="text-slate-300 hover:text-pink-400 transition-colors duration-300 font-medium">ভিডিও</a>
+                    <a href="#sound-effects" class="text-slate-300 hover:text-teal-400 transition-colors duration-300 font-medium">সাউন্ড ইফেক্টস</a>
+                    <a href="#thumbnail" class="text-slate-300 hover:text-emerald-400 transition-colors duration-300 font-medium">থাম্বনেইল</a>
+                    <a href="#smart-pack" class="text-slate-300 hover:text-violet-400 transition-colors duration-300 font-medium">স্মার্ট প্যাক</a>
+                    <a href="#software" class="text-slate-300 hover:text-amber-400 transition-colors duration-300 font-medium">সফটওয়্যার</a>
+                    <a href="#ai" class="text-slate-300 hover:text-orange-400 transition-colors duration-300 font-medium">AI</a>
+                </div>
+            </nav>
+            <div class="relative mt-3 md:mt-0 md:ml-6">
+                <input type="search" id="search-box" placeholder="এখানে খুঁজুন..." class="bg-slate-800 border border-slate-600 text-slate-300 text-sm rounded-lg focus:ring-cyan-500 focus:border-cyan-500 block w-full pl-10 p-2.5" autocomplete="off">
+                <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                    <i class="fa-solid fa-search text-slate-400"></i>
+                </div>
             </div>
         </div>
-    </nav>
+    </div>
+
 
     <main class="container mx-auto px-4 py-12">
         <div class="space-y-20">
-
-            <!-- Category: Icons & Logos -->
-            <section id="icons" class="reveal">
-                <h2 class="text-3xl font-semibold mb-8 border-l-4 border-cyan-400 pl-4 text-white">আইকন ও লোগো</h2>
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-                    <div class="card"><div class="card-content"><p class="text-lg font-medium mb-4 flex-grow">স্ট্যাটিক আইকন</p><a href="https://drive.google.com/drive/folders/1t6LMZxY-fFV1v3x-urXffdkJZcJml2SJ" target="_blank" class="bg-cyan-500 text-white font-bold py-3 px-4 rounded-md text-center hover:bg-cyan-600 transition-colors duration-300 w-full"><i class="fa-solid fa-icons mr-2"></i> ডাউনলোড করুন</a></div></div>
-                    <div class="card"><div class="card-content"><p class="text-lg font-medium mb-4 flex-grow">অ্যানিমেটেড আইকন</p><a href="https://drive.google.com/drive/folders/19sW61DnOsH8papJ7djlLHInPzUnS4-M7" target="_blank" class="bg-cyan-500 text-white font-bold py-3 px-4 rounded-md text-center hover:bg-cyan-600 transition-colors duration-300 w-full"><i class="fa-solid fa-film mr-2"></i> ডাউনলোড করুন</a></div></div>
-                    <div class="card"><div class="card-content"><p class="text-lg font-medium mb-4 flex-grow">অ্যানিমেটেড লোগো</p><a href="https://drive.google.com/drive/folders/1Ds5meItbWEFkBFqbgsNUdXlEEALKnhTX" target="_blank" class="bg-cyan-500 text-white font-bold py-3 px-4 rounded-md text-center hover:bg-cyan-600 transition-colors duration-300 w-full"><i class="fa-solid fa-play-circle mr-2"></i> ডাউনলোড করুন</a></div></div>
-                    <div class="card"><div class="card-content"><p class="text-lg font-medium mb-4 flex-grow">২৫+ সাদা গ্লোয়িং আইকন</p><a href="https://drive.google.com/drive/folders/1AzK2nVibEdSrNluziAQd2iEkQIF3iEB1" target="_blank" class="bg-cyan-500 text-white font-bold py-3 px-4 rounded-md text-center hover:bg-cyan-600 transition-colors duration-300 w-full"><i class="fa-solid fa-star mr-2"></i> ডাউনলোড করুন</a></div></div>
-                </div>
-            </section>
-
-            <!-- Category: Video Editing Assets -->
-            <section id="video-assets" class="reveal">
-                <h2 class="text-3xl font-semibold mb-8 border-l-4 border-pink-500 pl-4 text-white">ভিডিও এডিটিং অ্যাসেট</h2>
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-                    <div class="card"><div class="card-content"><p class="text-lg font-medium mb-4 flex-grow">অ্যারো</p><a href="https://drive.google.com/drive/folders/12rGF-xaM104zQTZjKNjhmHHs65qhK-Tt" target="_blank" class="bg-pink-500 text-white font-bold py-3 px-4 rounded-md text-center hover:bg-pink-600 transition-colors duration-300 w-full"><i class="fa-solid fa-arrow-right mr-2"></i> ডাউনলোড</a></div></div>
-                    <div class="card"><div class="card-content"><p class="text-lg font-medium mb-4 flex-grow">১৫+ অ্যানিমেটেড অ্যারো</p><a href="https://drive.google.com/drive/folders/1u4rDjw_2IbOTNBhBNePDXEct-em3gOwZ" target="_blank" class="bg-pink-500 text-white font-bold py-3 px-4 rounded-md text-center hover:bg-pink-600 transition-colors duration-300 w-full"><i class="fa-solid fa-location-arrow mr-2"></i> ডাউনলোড</a></div></div>
-                    <div class="card"><div class="card-content"><p class="text-lg font-medium mb-4 flex-grow">গ্রিন স্ক্রিন</p><a href="https://drive.google.com/drive/folders/1xN2mXd5JJBuuWIYYRp2mICfDILKfaD3Q" target="_blank" class="bg-pink-500 text-white font-bold py-3 px-4 rounded-md text-center hover:bg-pink-600 transition-colors duration-300 w-full"><i class="fa-solid fa-desktop mr-2"></i> ডাউনলোড</a></div></div>
-                    <div class="card"><div class="card-content"><p class="text-lg font-medium mb-4 flex-grow">GIFs</p><a href="https://drive.google.com/drive/folders/1Fq5OTTYvxNzpNrtO2qQNczZ953fF8VrY" target="_blank" class="bg-pink-500 text-white font-bold py-3 px-4 rounded-md text-center hover:bg-pink-600 transition-colors duration-300 w-full"><i class="fa-solid fa-photo-film mr-2"></i> ডাউনলোড</a></div></div>
-                    <div class="card"><div class="card-content"><p class="text-lg font-medium mb-4 flex-grow">৮০+ ভিডিও ক্লিপ</p><a href="https://drive.google.com/drive/folders/1IrdzM8Z6MwgGc6mMd1KG8WkuPCSTIHcm" target="_blank" class="bg-pink-500 text-white font-bold py-3 px-4 rounded-md text-center hover:bg-pink-600 transition-colors duration-300 w-full"><i class="fa-solid fa-video mr-2"></i> ডাউনলোড</a></div></div>
-                    <div class="card"><div class="card-content"><p class="text-lg font-medium mb-4 flex-grow">সাউন্ড ইফেক্টস (প্যাক ১)</p><a href="https://drive.google.com/drive/folders/10vR3XlJ_2A9c-o36EOIAQX8Cc65Zfg61" target="_blank" class="bg-pink-500 text-white font-bold py-3 px-4 rounded-md text-center hover:bg-pink-600 transition-colors duration-300 w-full"><i class="fa-solid fa-volume-high mr-2"></i> ডাউনলোড</a></div></div>
-                    <div class="card"><div class="card-content"><p class="text-lg font-medium mb-4 flex-grow">সাউন্ড ইফেক্টস (প্যাক ২)</p><a href="https://drive.google.com/drive/folders/1gs382gQo3pXgPEquInhh25Gz9iZphLa9" target="_blank" class="bg-pink-500 text-white font-bold py-3 px-4 rounded-md text-center hover:bg-pink-600 transition-colors duration-300 w-full"><i class="fa-solid fa-music mr-2"></i> ডাউনলোড</a></div></div>
-                    <div class="card"><div class="card-content"><p class="text-lg font-medium mb-4 flex-grow">ট্রানজিশন (প্যাক ১)</p><a href="https://drive.google.com/drive/folders/1JwBP2ug3AKTl-l5-R0wwqQQydlYB9Ud5" target="_blank" class="bg-pink-500 text-white font-bold py-3 px-4 rounded-md text-center hover:bg-pink-600 transition-colors duration-300 w-full"><i class="fa-solid fa-wand-magic-sparkles mr-2"></i> ডাউনলোড</a></div></div>
-                    <div class="card"><div class="card-content"><p class="text-lg font-medium mb-4 flex-grow">ট্রানজিশন (প্যাক ২)</p><a href="https://drive.google.com/drive/folders/1qwiUBCOXfiVVP7WizP6XdbZInjLN2y7o" target="_blank" class="bg-pink-500 text-white font-bold py-3 px-4 rounded-md text-center hover:bg-pink-600 transition-colors duration-300 w-full"><i class="fa-solid fa-layer-group mr-2"></i> ডাউনলোড</a></div></div>
-                    <div class="card"><div class="card-content"><p class="text-lg font-medium mb-4 flex-grow">ওভারলে</p><a href="https://drive.google.com/drive/folders/1WobS6xLS_IJggS8UbyV8NYR_lYit5NPR" target="_blank" class="bg-pink-500 text-white font-bold py-3 px-4 rounded-md text-center hover:bg-pink-600 transition-colors duration-300 w-full"><i class="fa-solid fa-object-group mr-2"></i> ডাউনলোড</a></div></div>
-                </div>
-            </section>
-
-            <!-- Category: Thumbnail & Design -->
-            <section id="thumbnail" class="reveal">
-                <h2 class="text-3xl font-semibold mb-8 border-l-4 border-emerald-400 pl-4 text-white">থাম্বনেইল ও ডিজাইন</h2>
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-                    <div class="card"><div class="card-content"><p class="text-lg font-medium mb-4 flex-grow">৩০০+ ডিজাইন ম্যাটেরিয়াল</p><a href="https://drive.google.com/drive/folders/18FUvGBBJQAVJCEC9dkxuyUGrZiVmWTvQ" target="_blank" class="bg-emerald-500 text-white font-bold py-3 px-4 rounded-md text-center hover:bg-emerald-600 transition-colors duration-300 w-full"><i class="fa-solid fa-palette mr-2"></i> ডাউনলোড</a></div></div>
-                    <div class="card"><div class="card-content"><p class="text-lg font-medium mb-4 flex-grow">২০০+ VIP ব্যাকগ্রাউন্ড</p><a href="https://drive.google.com/drive/folders/1naHPSQPtdVRFmZ_O6byXgphgm54Gs_YJ" target="_blank" class="bg-emerald-500 text-white font-bold py-3 px-4 rounded-md text-center hover:bg-emerald-600 transition-colors duration-300 w-full"><i class="fa-solid fa-image mr-2"></i> ডাউনলোড</a></div></div>
-                    <div class="card"><div class="card-content"><p class="text-lg font-medium mb-4 flex-grow">ক্যারেক্টার</p><a href="https://drive.google.com/drive/folders/1jh0kdXjJ2NigCX_MmnL0zjtQNUcgt10h" target="_blank" class="bg-emerald-500 text-white font-bold py-3 px-4 rounded-md text-center hover:bg-emerald-600 transition-colors duration-300 w-full"><i class="fa-solid fa-user-astronaut mr-2"></i> ডাউনলোড</a></div></div>
-                    <div class="card"><div class="card-content"><p class="text-lg font-medium mb-4 flex-grow">হ্যান্ডস</p><a href="https://drive.google.com/drive/folders/1rMs1cKlQXmbpIlZj07K1sRUEt2OP4guq" target="_blank" class="bg-emerald-500 text-white font-bold py-3 px-4 rounded-md text-center hover:bg-emerald-600 transition-colors duration-300 w-full"><i class="fa-solid fa-hand-point-up mr-2"></i> ডাউনলোড</a></div></div>
-                    <div class="card"><div class="card-content"><p class="text-lg font-medium mb-4 flex-grow">ব্যাকগ্রাউন্ড (প্যাক ১)</p><a href="https://drive.google.com/drive/folders/1tTyX89RpsHcXNtjsyNddjOSl0E5a-52C" target="_blank" class="bg-emerald-500 text-white font-bold py-3 px-4 rounded-md text-center hover:bg-emerald-600 transition-colors duration-300 w-full"><i class="fa-solid fa-images mr-2"></i> ডাউনলোড</a></div></div>
-                    <div class="card"><div class="card-content"><p class="text-lg font-medium mb-4 flex-grow">ব্যাকগ্রাউন্ড (প্যাক ২)</p><a href="https://drive.google.com/drive/folders/1IFo2IWVgngUaN62k81qZdUCSuTnu29r2" target="_blank" class="bg-emerald-500 text-white font-bold py-3 px-4 rounded-md text-center hover:bg-emerald-600 transition-colors duration-300 w-full"><i class="fa-solid fa-photo-film mr-2"></i> ডাউনলোড</a></div></div>
-                    <div class="card"><div class="card-content"><p class="text-lg font-medium mb-4 flex-grow">সাধারণ ছবি</p><a href="https://drive.google.com/drive/folders/13eUfWhZVgXPMT5-c3sORmeD2u-O-W37A" target="_blank" class="bg-emerald-500 text-white font-bold py-3 px-4 rounded-md text-center hover:bg-emerald-600 transition-colors duration-300 w-full"><i class="fa-regular fa-image mr-2"></i> ডাউনলোড</a></div></div>
-                </div>
-            </section>
-
-            <!-- Category: Smart Pack -->
-            <section id="smart-pack" class="reveal">
-                <h2 class="text-3xl font-semibold mb-8 border-l-4 border-violet-500 pl-4 text-white">স্মার্ট প্যাক</h2>
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-                     <div class="card"><div class="card-content"><p class="text-lg font-medium mb-4 flex-grow">স্মার্ট প্যাক</p><a href="https://drive.google.com/drive/folders/1w1s7dyddloz8u2ASvbxYvXhGHnbxXKhJ" target="_blank" class="bg-violet-500 text-white font-bold py-3 px-4 rounded-md text-center hover:bg-violet-600 transition-colors duration-300 w-full"><i class="fa-solid fa-box-archive mr-2"></i> ডাউনলোড</a></div></div>
-                </div>
-            </section>
-
-            <!-- Category: Software -->
-            <section id="software" class="reveal">
-                <h2 class="text-3xl font-semibold mb-8 border-l-4 border-amber-400 pl-4 text-white">সফটওয়্যার</h2>
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-                     <div class="card"><div class="card-content"><p class="text-lg font-medium mb-4 flex-grow">সফটওয়্যার প্যাক</p><a href="https://drive.google.com/file/d/1cPL3uH90ztJmPRCr46v557ms9RWC8HaY/view?usp=drivesdk" target="_blank" class="bg-amber-500 text-white font-bold py-3 px-4 rounded-md text-center hover:bg-amber-600 transition-colors duration-300 w-full"><i class="fa-solid fa-download mr-2"></i> ডাউনলোড</a></div></div>
-                </div>
-            </section>
-
+            <p id="no-results" class="text-center text-xl text-slate-400 hidden">কোনো ফলাফল পাওয়া যায়নি।</p>
+            <!-- Sections will be injected here -->
         </div>
     </main>
+    
+    <!-- Modal Structure -->
+    <div id="modal-container" class="fixed inset-0 bg-black bg-opacity-70 backdrop-blur-sm flex justify-center items-center z-[9999] hidden">
+        <div id="modal-content" class="bg-slate-800 p-8 rounded-lg shadow-2xl w-full max-w-md relative transform transition-all duration-300 scale-95 opacity-0">
+            <button id="modal-close-btn" class="absolute top-4 right-4 text-slate-400 hover:text-white transition-colors">
+                <i class="fa-solid fa-times text-2xl"></i>
+            </button>
+            <h3 id="modal-title" class="text-2xl font-bold mb-6 text-white"></h3>
+            <div id="modal-body" class="space-y-4">
+                <!-- Modal links will be injected here -->
+            </div>
+        </div>
+    </div>
+
 
     <!-- Footer -->
     <footer class="text-center py-8 mt-12 border-t border-slate-800">
-        <p class="text-slate-500">&copy; 2024 - Creator's Ultimate Pack. Happy Creating!</p>
+        <p class="text-slate-500">&copy; 2024 - DAKATI VAI Ultimate Pack. Happy Creating!</p>
     </footer>
 
+    <!-- Back to top button -->
+    <a href="#" id="to-top-btn" class="bg-slate-700/50 backdrop-blur-sm text-white w-12 h-12 rounded-full flex items-center justify-center hover:bg-slate-600 transition-colors duration-300">
+        <i class="fa-solid fa-arrow-up"></i>
+    </a>
+
     <script>
-        // Scroll Animation Logic
-        const revealElements = document.querySelectorAll('.reveal');
+    document.addEventListener('DOMContentLoaded', () => {
 
-        const revealObserver = new IntersectionObserver((entries, observer) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                    observer.unobserve(entry.target);
-                }
+        const data = {
+            "icons": {
+                "title": "আইকন ও লোগো",
+                "color": "cyan",
+                "items": [
+                    { "name": "স্ট্যাটিক আইকন", "link": "https://drive.google.com/drive/folders/1t6LMZxY-fFV1v3x-urXffdkJZcJml2SJ", "icon": "fa-icons" },
+                    { "name": "অ্যানিমেটেড আইকন", "link": "https://drive.google.com/drive/folders/19sW61DnOsH8papJ7djlLHInPzUnS4-M7", "icon": "fa-film" },
+                    { "name": "অ্যানিমেটেড লোগো", "link": "https://drive.google.com/drive/folders/1Ds5meItbWEFkBFqbgsNUdXlEEALKnhTX", "icon": "fa-play-circle" },
+                    { "name": "২৫+ সাদা গ্লোয়িং আইকন", "link": "https://drive.google.com/drive/folders/1AzK2nVibEdSrNluziAQd2iEkQIF3iEB1", "icon": "fa-star" }
+                ]
+            },
+            "video-assets": {
+                "title": "ভিডিও এডিটিং অ্যাসেট",
+                "color": "pink",
+                "items": [
+                    { "name": "১৫+ অ্যানিমেটেড অ্যারো", "link": "https://drive.google.com/drive/folders/1u4rDjw_2IbOTNBhBNePDXEct-em3gOwZ", "icon": "fa-location-arrow" },
+                    { "name": "গ্রিন স্ক্রিন", "link": "https://drive.google.com/drive/folders/1xN2mXd5JJBuuWIYYRp2mICfDILKfaD3Q", "icon": "fa-desktop" },
+                    { "name": "GIFs", "link": "https://drive.google.com/drive/folders/1Fq5OTTYvxNzpNrtO2qQNczZ953fF8VrY", "icon": "fa-photo-film" },
+                    { "name": "৮০+ ভিডিও ক্লিপ", "link": "https://drive.google.com/drive/folders/1IrdzM8Z6MwgGc6mMd1KG8WkuPCSTIHcm", "icon": "fa-video" },
+                    { "name": "ট্রানজিশন (প্যাক ১)", "link": "https://drive.google.com/drive/folders/1JwBP2ug3AKTl-l5-R0wwqQQydlYB9Ud5", "icon": "fa-wand-magic-sparkles" },
+                    { "name": "ট্রানজিশন (প্যাক ২)", "link": "https://drive.google.com/drive/folders/1qwiUBCOXfiVVP7WizP6XdbZInjLN2y7o", "icon": "fa-layer-group" },
+                    { "name": "ওভারলে", "link": "https://drive.google.com/drive/folders/1WobS6xLS_IJggS8UbyV8NYR_lYit5NPR", "icon": "fa-object-group" }
+                ]
+            },
+             "sound-effects": {
+                "title": "সাউন্ড ইফেক্টস",
+                "color": "teal",
+                "items": [
+                    { "name": "সাউন্ড ইফেক্টস (প্যাক ১)", "link": "https://drive.google.com/drive/folders/10vR3XlJ_2A9c-o36EOIAQX8Cc65Zfg61", "icon": "fa-volume-high" },
+                    { "name": "সাউন্ড ইফেক্টস (প্যাক ২)", "link": "https://drive.google.com/drive/folders/1gs382gQo3pXgPEquInhh25Gz9iZphLa9", "icon": "fa-music" }
+                ]
+            },
+            "thumbnail": {
+                "title": "থাম্বনেইল ও ডিজাইন",
+                "color": "emerald",
+                "items": [
+                    { "name": "অ্যারো", "link": "https://drive.google.com/drive/folders/12rGF-xaM104zQTZjKNjhmHHs65qhK-Tt", "icon": "fa-arrow-right" },
+                    { "name": "৩০০+ ডিজাইন ম্যাটেরিয়াল", "link": "https://drive.google.com/drive/folders/18FUvGBBJQAVJCEC9dkxuyUGrZiVmWTvQ", "icon": "fa-palette" },
+                    { "name": "২০০+ VIP ব্যাকগ্রাউন্ড", "link": "https://drive.google.com/drive/folders/1naHPSQPtdVRFmZ_O6byXgphgm54Gs_YJ", "icon": "fa-image" },
+                    { "name": "ক্যারেক্টার", "link": "https://drive.google.com/drive/folders/1jh0kdXjJ2NigCX_MmnL0zjtQNUcgt10h", "icon": "fa-user-astronaut" },
+                    { "name": "হ্যান্ডস", "link": "https://drive.google.com/drive/folders/1rMs1cKlQXmbpIlZj07K1sRUEt2OP4guq", "icon": "fa-hand-point-up" },
+                    { 
+                        "name": "ব্যাকগ্রাউন্ড", "icon": "fa-images", "type": "modal", "modalId": "background-modal",
+                        "subItems": [
+                            { "name": "ব্যাকগ্রাউন্ড (প্যাক ১)", "link": "https://drive.google.com/drive/folders/1tTyX89RpsHcXNtjsyNddjOSl0E5a-52C" },
+                            { "name": "ব্যাকগ্রাউন্ড (প্যাক ২)", "link": "https://drive.google.com/drive/folders/1IFo2IWVgngUaN62k81qZdUCSuTnu29r2" }
+                        ]
+                    },
+                    { "name": "সাধারণ ছবি", "link": "https://drive.google.com/drive/folders/13eUfWhZVgXPMT5-c3sORmeD2u-O-W37A", "icon": "fa-regular fa-image" }
+                ]
+            },
+            "smart-pack": {
+                "title": "স্মার্ট প্যাক",
+                "color": "violet",
+                "items": [
+                    { "name": "স্মার্ট প্যাক", "link": "https://drive.google.com/drive/folders/1w1s7dyddloz8u2ASvbxYvXhGHnbxXKhJ", "icon": "fa-box-archive" }
+                ]
+            },
+            "software": {
+                "title": "সফটওয়্যার",
+                "color": "amber",
+                "items": [
+                    { "name": "সফটওয়্যার প্যাক", "link": "https://drive.google.com/file/d/1cPL3uH90ztJmPRCr46v557ms9RWC8HaY/view?usp=drivesdk", "icon": "fa-download" }
+                ]
+            },
+             "ai": {
+                "title": "AI টুলস",
+                "color": "orange",
+                "items": [
+                    { "name": "LM Arena AI", "link": "https://beta.lmarena.ai/?fbclid=IwY2xjawLRr75leHRuA2FlbQIxMABicmlkETFwbDRiWk1MaUt3ak15MjNSAR4hYto65TuEnBaglPiswfSmJmoEVCMcXJpaMvB9q34WX4B0LrDqWJ5ruTIRzg_aem_YiumGviMCDA1X0XnBhwjfA", "icon": "fa-brain" }
+                ]
+            }
+        };
+
+        const mainContainer = document.querySelector('main .space-y-20');
+
+        function createCard(item, color, sectionKey) {
+            const isModal = item.type === 'modal';
+             const actionButton = isModal
+                ? `<button data-modal-trigger="${item.modalId}" data-section-key="${sectionKey}" data-item-name="${item.name}" class="bg-${color}-500 text-white font-bold py-3 px-4 rounded-md text-center hover:bg-${color}-600 transition-colors duration-300 w-full">
+                       <i class="fa-solid ${item.icon} mr-2"></i> অপশন দেখুন
+                   </button>`
+                : `<a href="${item.link}" target="_blank" class="bg-${color}-500 text-white font-bold py-3 px-4 rounded-md text-center hover:bg-${color}-600 transition-colors duration-300 w-full">
+                       <i class="fa-solid ${item.icon} mr-2"></i> ${sectionKey === 'ai' ? 'সাইটে যান' : 'ডাউনলোড'}
+                   </a>`;
+
+            return `
+                <div class="card-container" data-name="${item.name.toLowerCase()}">
+                    <div class="card rounded-lg">
+                        <div class="card-content">
+                            <p class="text-lg font-medium mb-4 flex-grow">${item.name}</p>
+                            ${actionButton}
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+
+        function renderContent() {
+            mainContainer.innerHTML = '';
+            for (const key in data) {
+                const sectionData = data[key];
+                const section = document.createElement('section');
+                section.id = key;
+                section.className = 'reveal';
+                
+                let cardsHTML = sectionData.items.map(item => createCard(item, sectionData.color, key)).join('');
+                
+                section.innerHTML = `
+                    <h2 class="text-3xl font-semibold mb-8 border-l-4 border-${sectionData.color}-400 pl-4 text-white flex justify-between items-center">
+                        ${sectionData.title}
+                        <span class="text-lg font-normal text-slate-400 bg-slate-700/50 px-3 py-1 rounded-full">${sectionData.items.length}</span>
+                    </h2>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+                        ${cardsHTML}
+                    </div>
+                `;
+                mainContainer.appendChild(section);
+            }
+            addEventListeners();
+        }
+
+        // --- All event listeners function ---
+        function addEventListeners() {
+            // Scroll Animation Logic
+            const revealElements = document.querySelectorAll('.reveal');
+            const revealObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        revealObserver.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1 });
+            revealElements.forEach(elem => revealObserver.observe(elem));
+
+            // 3D Card Tilt Logic
+            const cards = document.querySelectorAll('.card');
+            cards.forEach(card => {
+                card.addEventListener('mousemove', (e) => {
+                    const rect = card.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    const width = rect.width;
+                    const height = rect.height;
+                    const rotateX = -1 * ((y - height / 2) / (height / 2)) * 10;
+                    const rotateY = ((x - width / 2) / (width / 2)) * 10;
+                    card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.05, 1.05, 1.05)`;
+                });
+                card.addEventListener('mouseleave', () => {
+                    card.style.transform = 'rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
+                });
             });
-        }, {
-            threshold: 0.1
+             // Custom Cursor hover effect
+            document.querySelectorAll('a, button, input[type="search"]').forEach(el => {
+                el.addEventListener('mouseenter', () => cursorOutline.classList.add('hovered'));
+                el.addEventListener('mouseleave', () => cursorOutline.classList.remove('hovered'));
+            });
+        }
+        
+        // --- Initial render ---
+        renderContent();
+
+        // --- Preloader Logic ---
+        const preloader = document.getElementById('preloader');
+        window.addEventListener('load', () => {
+            preloader.classList.add('loaded');
         });
 
-        revealElements.forEach(elem => {
-            revealObserver.observe(elem);
+        // --- Custom Cursor Logic ---
+        const cursorDot = document.querySelector('.cursor-dot');
+        const cursorOutline = document.querySelector('.cursor-outline');
+        window.addEventListener('mousemove', (e) => {
+            const posX = e.clientX;
+            const posY = e.clientY;
+            cursorDot.style.left = `${posX}px`;
+            cursorDot.style.top = `${posY}px`;
+            cursorOutline.style.left = `${posX}px`;
+            cursorOutline.style.top = `${posY}px`;
         });
+        document.body.addEventListener('mouseleave', () => {
+            cursorDot.classList.add('hidden');
+            cursorOutline.classList.add('hidden');
+        });
+        document.body.addEventListener('mouseenter', () => {
+            cursorDot.classList.remove('hidden');
+            cursorOutline.classList.remove('hidden');
+        });
+        
+        // --- Back to Top Button Logic ---
+        const toTopBtn = document.getElementById('to-top-btn');
+        window.addEventListener('scroll', () => {
+            toTopBtn.classList.toggle('show', window.scrollY > 300);
+        });
+
+        // --- Search Logic ---
+        const searchBox = document.getElementById('search-box');
+        const noResults = document.getElementById('no-results');
+        searchBox.addEventListener('input', (e) => {
+            const searchTerm = e.target.value.toLowerCase().trim();
+            let resultsFound = false;
+
+            document.querySelectorAll('section').forEach(section => {
+                let sectionVisible = false;
+                section.querySelectorAll('.card-container').forEach(card => {
+                    const cardName = card.dataset.name;
+                    const isMatch = cardName.includes(searchTerm);
+                    card.style.display = isMatch ? '' : 'none';
+                    if (isMatch) {
+                        sectionVisible = true;
+                        resultsFound = true;
+                    }
+                });
+                section.style.display = sectionVisible ? '' : 'none';
+            });
+            noResults.style.display = resultsFound ? 'none' : 'block';
+        });
+
+        // --- Modal Logic ---
+        const modalContainer = document.getElementById('modal-container');
+        const modalContent = document.getElementById('modal-content');
+        const modalTitle = document.getElementById('modal-title');
+        const modalBody = document.getElementById('modal-body');
+        const modalCloseBtn = document.getElementById('modal-close-btn');
+
+        function openModal(modalData, color) {
+            modalTitle.textContent = modalData.name;
+            modalBody.innerHTML = modalData.subItems.map(subItem => `
+                <a href="${subItem.link}" target="_blank" class="block w-full text-center bg-slate-700 hover:bg-${color}-500 text-white font-bold py-3 px-4 rounded-md transition-colors duration-300">
+                    ${subItem.name}
+                </a>
+            `).join('');
+
+            modalContainer.classList.remove('hidden');
+            setTimeout(() => { // for animation
+                modalContent.classList.remove('scale-95', 'opacity-0');
+            }, 10);
+        }
+
+        function closeModal() {
+            modalContent.classList.add('scale-95', 'opacity-0');
+            setTimeout(() => {
+                modalContainer.classList.add('hidden');
+            }, 300);
+        }
+
+        document.addEventListener('click', e => {
+            const trigger = e.target.closest('[data-modal-trigger]');
+            if (trigger) {
+                const sectionKey = trigger.dataset.sectionKey;
+                const itemName = trigger.dataset.itemName;
+                const sectionData = data[sectionKey];
+                const itemData = sectionData.items.find(it => it.name === itemName);
+                if (itemData) {
+                    openModal(itemData, sectionData.color);
+                }
+            }
+        });
+
+        modalCloseBtn.addEventListener('click', closeModal);
+        modalContainer.addEventListener('click', e => {
+            if (e.target === modalContainer) {
+                closeModal();
+            }
+        });
+
+    });
     </script>
-
 </body>
 </html>
-
 
