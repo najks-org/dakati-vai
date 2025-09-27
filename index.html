@@ -261,6 +261,12 @@
                     { "id": "video_tutorials_1", "link": "https://www.youtube.com/watch?v=uWveRquGOqk&list=PLBbIq4hhNL1pnkJBa-b-4wCrdKbAKh6pXr" },
                     { "id": "video_tutorials_2", "link": "https://www.youtube.com/playlist?list=PLW-zSkCnZ-gABGZU8--ISUauyewG40Yex" },
                     { "id": "video_tutorials_3", "link": "https://youtu.be/eCsM0r3RNc4?si=ofinRMKHRGLNoxfv" }
+                ]},
+                { "id": "after_effect_tutorials", "icon": "fa-film", "type": "modal", "modalId": "after-effect-modal", "subItems": [
+                    { "id": "gfxmentor_ae", "link": "https://www.youtube.com/watch?v=Xv8JBXPgeI8&list=PLW-zSkCnZ-gD8OcjTPu-u_Rxl9-kI9Xqr" },
+                    { "id": "gareth_david_ae", "link": "https://www.youtube.com/watch?v=uRdfvpQ5rcQ&list=PLYfCBK8IplO77FDDLnS06qEMoVLD7Qyib" },
+                    { "id": "james_prince_ae", "link": "https://www.youtube.com/watch?v=f66yGfsTjsU&list=PLBbIq4hhNL1oVxSX3_5ynAZ0Bxw0EPH_1&pp=0gcJCaIEOCosWNin" },
+                    { "id": "ahsanullah_shaon_ae", "link": "https://www.youtube.com/watch?v=ieN1CpFhHFs&list=PL6YW2nJrepFSBvICPkJgKIckaf8q_mSib" }
                 ]}
             ] },
             "web_resources": { "color": "lime", "items": [ 
@@ -297,7 +303,9 @@
                     "smart_pack": "স্মার্ট প্যাক", 
                     "software_pack": "সফটওয়্যার প্যাক", 
                     "lm_arena": "LM Arena AI", 
-                    "video_tutorials_combined": "Adobe Premiere Pro", "video_tutorials_1": "James Prince Course", "video_tutorials_2": "GFXMentor Course", "video_tutorials_3": "নতুন ভিডিও টিউটোরিয়াল",
+                    "video_tutorials_combined": "অ্যাডোবি প্রিমিয়ার প্রো",
+                    "video_tutorials_1": "James Prince Course", "video_tutorials_2": "GFXMentor Course", "video_tutorials_3": "নতুন ভিডিও টিউটোরিয়াল",
+                    "after_effect_tutorials": "অ্যাডোবি আফটার ইফেক্ট", "gfxmentor_ae": "GFXMentor Course", "gareth_david_ae": "Gareth David Studio", "james_prince_ae": "James Prince (বাংলা)", "ahsanullah_shaon_ae": "Ahsanullah SHAON (বাংলা)",
                     "background_remover": "ব্যাকগ্রাউন্ড রিমুভার টুলস", "remove_bg": "Remove.bg", "adobe_express": "Adobe Express", "pixelcut": "Pixelcut.ai", "cutout_pro": "Cutout.pro", "fotor": "Fotor",
                     "png_image_sites": "PNG ইমেজ সাইট", "pngwing": "Pngwing", "pngtree": "Pngtree", "pngegg": "Pngegg", "freepik_png": "Freepik PNG", "pngwing_free": "Pngwing (Free Download)"
                 }
@@ -318,6 +326,7 @@
                     "software_pack": "Software Pack", 
                     "lm_arena": "LM Arena AI", 
                     "video_tutorials_combined": "Adobe Premiere Pro", "video_tutorials_1": "James Prince Course", "video_tutorials_2": "GFXMentor Course", "video_tutorials_3": "New Video Tutorial",
+                    "after_effect_tutorials": "Adobe After Effect", "gfxmentor_ae": "GFXMentor Course", "gareth_david_ae": "Gareth David Studio", "james_prince_ae": "James Prince (Bangla)", "ahsanullah_shaon_ae": "Ahsanullah SHAON (Bangla)",
                     "background_remover": "Background Remover Tools", "remove_bg": "Remove.bg", "adobe_express": "Adobe Express", "pixelcut": "Pixelcut.ai", "cutout_pro": "Cutout.pro", "fotor": "Fotor",
                     "png_image_sites": "PNG Image Sites", "pngwing": "Pngwing", "pngtree": "Pngtree", "pngegg": "Pngegg", "freepik_png": "Freepik PNG", "pngwing_free": "Pngwing (Free Download)"
                 }
@@ -371,7 +380,8 @@
         }
 
         function renderDynamicContent(lang) {
-            mainContainer.innerHTML = '';
+            // Remove only previously generated sections to preserve the #no-results paragraph
+            mainContainer.querySelectorAll('section').forEach(s => s.remove());
             const t = translations[lang];
             for (const key in contentData) {
                 const sectionData = contentData[key];
@@ -503,7 +513,7 @@
         function openNestedModal(itemData, color, lang) {
             const t = translations[lang];
             nestedModalTitle.textContent = t.items[itemData.id];
-            nestedModalBody.innerHTML = itemData.subItems.map(subItem => `<a href="${subItem.link}" target="_blank" class="action-btn block w-full text-center bg-slate-700 hover:bg-${color}-500 text-white font-bold py-3 px-4 rounded-md transition-colors duration-300">${t.items[subItem.id]}</a>`).join('');
+            nestedModalBody.innerHTML = itemData.subItems.map(subItem => `<a href="${subItem.link}" target="_blank" class="action-btn block w-full text-center bg-slate-700 hover:bg-${color}-500 text-white font-bold py-3 px-4 rounded-md transition-colors duration-300"><i class="fa-solid fa-arrow-up-right-from-square mr-2"></i>${t.items[subItem.id]}</a>`).join('');
             nestedModalContainer.classList.remove('hidden');
             setTimeout(() => nestedModalContent.classList.remove('scale-95', 'opacity-0'), 10);
         }
@@ -538,7 +548,6 @@
     </script>
 </body>
 </html>
-
 
 
 
