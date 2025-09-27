@@ -180,11 +180,11 @@
         <div class="container mx-auto px-4 py-3 flex flex-col md:flex-row justify-center items-center">
             <nav class="flex-grow">
                 <div class="flex flex-wrap justify-center items-center space-x-4 md:space-x-6 text-sm md:text-base">
+                    <a href="#web_resources" data-lang-key="navWebResources" class="text-slate-300 hover:text-lime-400 transition-colors duration-300 font-medium"></a>
+                    <a href="#tutorial" data-lang-key="navTutorial" class="text-slate-300 hover:text-red-400 transition-colors duration-300 font-medium"></a>
+                    <a href="#ai" data-lang-key="navAI" class="text-slate-300 hover:text-orange-400 transition-colors duration-300 font-medium"></a>
                     <a href="#dakati" data-lang-key="navDakati" class="text-slate-300 hover:text-cyan-400 transition-colors duration-300 font-medium"></a>
                     <a href="#software" data-lang-key="navSoftware" class="text-slate-300 hover:text-amber-400 transition-colors duration-300 font-medium"></a>
-                    <a href="#ai" data-lang-key="navAI" class="text-slate-300 hover:text-orange-400 transition-colors duration-300 font-medium"></a>
-                    <a href="#tutorial" data-lang-key="navTutorial" class="text-slate-300 hover:text-red-400 transition-colors duration-300 font-medium"></a>
-                    <a href="#web_resources" data-lang-key="navWebResources" class="text-slate-300 hover:text-lime-400 transition-colors duration-300 font-medium"></a>
                 </div>
             </nav>
             <div class="relative mt-3 md:mt-0 md:ml-6 flex items-center">
@@ -251,24 +251,6 @@
         };
         
         const contentData = {
-            "dakati": { "color": "cyan", "items": [ 
-                { "id": "dakati_collection", "icon": "fa-box-open", "type": "modal", "modalId": "dakati-modal", "subItemKeys": ["icons", "video-assets", "sound-effects", "thumbnail", "smart-pack"] }
-            ]},
-            "software": { "color": "amber", "items": [ { "id": "software_pack", "link": "https://drive.google.com/file/d/1cPL3uH90ztJmPRCr46v557ms9RWC8HaY/view?usp=drivesdk", "icon": "fa-download" } ] },
-            "ai": { "color": "orange", "items": [ { "id": "lm_arena", "link": "https://beta.lmarena.ai/?fbclid=IwY2xjawLRr75leHRuA2FlbQIxMABicmlkETFwbDRiWk1MaUt3ak15MjNSAR4hYto65TuEnBaglPiswfSmJmoEVCMcXJpaMvB9q34WX4B0LrDqWJ5ruTIRzg_aem_YiumGviMCDA1X0XnBhwjfA", "icon": "fa-brain" } ] },
-            "tutorial": { "color": "red", "items": [ 
-                { "id": "video_tutorials_combined", "icon": "fa-brands fa-youtube", "type": "modal", "modalId": "tutorial-modal", "subItems": [
-                    { "id": "video_tutorials_1", "link": "https://www.youtube.com/watch?v=uWveRquGOqk&list=PLBbIq4hhNL1pnkJBa-b-4wCrdKbAKh6pXr" },
-                    { "id": "video_tutorials_2", "link": "https://www.youtube.com/playlist?list=PLW-zSkCnZ-gABGZU8--ISUauyewG40Yex" },
-                    { "id": "video_tutorials_3", "link": "https://youtu.be/eCsM0r3RNc4?si=ofinRMKHRGLNoxfv" }
-                ]},
-                { "id": "after_effect_tutorials", "icon": "fa-film", "type": "modal", "modalId": "after-effect-modal", "subItems": [
-                    { "id": "gfxmentor_ae", "link": "https://www.youtube.com/watch?v=Xv8JBXPgeI8&list=PLW-zSkCnZ-gD8OcjTPu-u_Rxl9-kI9Xqr" },
-                    { "id": "gareth_david_ae", "link": "https://www.youtube.com/watch?v=uRdfvpQ5rcQ&list=PLYfCBK8IplO77FDDLnS06qEMoVLD7Qyib" },
-                    { "id": "james_prince_ae", "link": "https://www.youtube.com/watch?v=f66yGfsTjsU&list=PLBbIq4hhNL1oVxSX3_5ynAZ0Bxw0EPH_1&pp=0gcJCaIEOCosWNin" },
-                    { "id": "ahsanullah_shaon_ae", "link": "https://www.youtube.com/watch?v=ieN1CpFhHFs&list=PL6YW2nJrepFSBvICPkJgKIckaf8q_mSib" }
-                ]}
-            ] },
             "web_resources": { "color": "lime", "items": [ 
                 { "id": "background_remover", "icon": "fa-wand-magic-sparkles", "type": "modal", "modalId": "resources-modal", "subItems": [
                     { "id": "remove_bg", "link": "https://www.remove.bg/" },
@@ -284,7 +266,25 @@
                     { "id": "freepik_png", "link": "https://www.freepik.com/free-photos-vectors/png" },
                     { "id": "pngwing_free", "link": "https://www.pngwing.com/en/search?q=free+download" }
                 ]}
-            ] }
+            ] },
+            "tutorial": { "color": "red", "items": [ 
+                { "id": "video_tutorials_combined", "icon": "fa-brands fa-youtube", "type": "modal", "modalId": "tutorial-modal", "subItems": [
+                    { "id": "video_tutorials_1", "link": "https://www.youtube.com/watch?v=uWveRquGOqk&list=PLBbIq4hhNL1pnkJBa-b-4wCrdKbAKh6pXr" },
+                    { "id": "video_tutorials_2", "link": "https://www.youtube.com/playlist?list=PLW-zSkCnZ-gABGZU8--ISUauyewG40Yex" },
+                    { "id": "video_tutorials_3", "link": "https://youtu.be/eCsM0r3RNc4?si=ofinRMKHRGLNoxfv" }
+                ]},
+                { "id": "after_effect_tutorials", "icon": "fa-film", "type": "modal", "modalId": "after-effect-modal", "subItems": [
+                    { "id": "gfxmentor_ae", "link": "https://www.youtube.com/watch?v=Xv8JBXPgeI8&list=PLW-zSkCnZ-gD8OcjTPu-u_Rxl9-kI9Xqr" },
+                    { "id": "gareth_david_ae", "link": "https://www.youtube.com/watch?v=uRdfvpQ5rcQ&list=PLYfCBK8IplO77FDDLnS06qEMoVLD7Qyib" },
+                    { "id": "james_prince_ae", "link": "https://www.youtube.com/watch?v=f66yGfsTjsU&list=PLBbIq4hhNL1oVxSX3_5ynAZ0Bxw0EPH_1&pp=0gcJCaIEOCosWNin" },
+                    { "id": "ahsanullah_shaon_ae", "link": "https://www.youtube.com/watch?v=ieN1CpFhHFs&list=PL6YW2nJrepFSBvICPkJgKIckaf8q_mSib" }
+                ]}
+            ] },
+            "ai": { "color": "orange", "items": [ { "id": "lm_arena", "link": "https://beta.lmarena.ai/?fbclid=IwY2xjawLRr75leHRuA2FlbQIxMABicmlkETFwbDRiWk1MaUt3ak15MjNSAR4hYto65TuEnBaglPiswfSmJmoEVCMcXJpaMvB9q34WX4B0LrDqWJ5ruTIRzg_aem_YiumGviMCDA1X0XnBhwjfA", "icon": "fa-brain" } ] },
+            "dakati": { "color": "cyan", "items": [ 
+                { "id": "dakati_collection", "icon": "fa-box-open", "type": "modal", "modalId": "dakati-modal", "subItemKeys": ["icons", "video-assets", "sound-effects", "thumbnail", "smart-pack"] }
+            ]},
+            "software": { "color": "amber", "items": [ { "id": "software_pack", "link": "https://drive.google.com/file/d/1cPL3uH90ztJmPRCr46v557ms9RWC8HaY/view?usp=drivesdk", "icon": "fa-download" } ] }
         };
 
         const translations = {
@@ -548,6 +548,4 @@
     </script>
 </body>
 </html>
-
-
 
