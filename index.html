@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ডাকাতি ভাই Ultimate Pack</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Hind Siliguri', sans-serif;
+            background-color: #0f172a; /* Fallback bg */
+            background-image: linear-gradient(315deg, #0f172a 0%, #1e293b 74%, #334155 100%);
+            animation: gradient-animation 20s ease infinite;
+            background-size: 400% 400%;
+        }
+
+        @keyframes gradient-animation {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .gradient-text {
+            background: linear-gradient(90deg, #38bdf8, #ec4899, #86efac);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            color: transparent;
+            background-size: 200% auto;
+            animation: text-shine 5s linear infinite;
+        }
+        
+        @keyframes text-shine {
+            to { background-position: 200% center; }
+        }
+
+        .card {
+            background: #1e293b;
+            border: 1px solid #334155;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: conic-gradient(from 180deg at 50% 50%, #ec4899, #38bdf8, #86efac, #ec4899);
+            z-index: 1;
+            opacity: 0;
+            transition: opacity 0.4s ease-in-out;
+            animation: rotate 4s linear infinite;
+        }
+
+        .card:hover::before {
+            opacity: 1;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .card-content {
+            position: relative;
+            z-index: 2;
+            background: #1e293b;
+            margin: 2px;
+            padding: 1.5rem;
+            border-radius: 0.5rem; /* Match parent's border-radius */
+            height: calc(100% - 4px);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        
+        /* Scroll Animation */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+    </style>
+</head>
+<body class="bg-slate-900 text-slate-200">
+
+    <!-- Header Section -->
+    <header class="text-center py-12 md:py-20 border-b border-slate-700">
+        <div class="container mx-auto px-4">
+            <h1 class="text-4xl md:text-6xl font-bold gradient-text mb-4">Creator's Ultimate Pack</h1>
+            <p class="text-lg md:text-xl text-slate-400 max-w-3xl mx-auto">আপনার ভিডিও এডিটিং এবং থাম্বনেইল ডিজাইনের জন্য প্রয়োজনীয় সবকিছু এখানে!</p>
+        </div>
+    </header>
+
+    <!-- Quick Links Navigation -->
+    <nav class="sticky top-0 z-50 bg-slate-900/80 backdrop-blur-lg border-b border-slate-700/50">
+        <div class="container mx-auto px-4 py-3">
+            <div class="flex justify-center items-center space-x-4 md:space-x-8 text-sm md:text-base">
+                <a href="#icons" class="text-slate-300 hover:text-cyan-400 transition-colors duration-300 font-medium">আইকন ও লোগো</a>
+                <a href="#video-assets" class="text-slate-300 hover:text-pink-400 transition-colors duration-300 font-medium">ভিডিও অ্যাসেট</a>
+                <a href="#thumbnail" class="text-slate-300 hover:text-emerald-400 transition-colors duration-300 font-medium">থাম্বনেইল</a>
+                <a href="#smart-pack" class="text-slate-300 hover:text-violet-400 transition-colors duration-300 font-medium">স্মার্ট প্যাক</a>
+                <a href="#software" class="text-slate-300 hover:text-amber-400 transition-colors duration-300 font-medium">সফটওয়্যার</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container mx-auto px-4 py-12">
+        <div class="space-y-20">
+
+            <!-- Category: Icons & Logos -->
+            <section id="icons" class="reveal">
+                <h2 class="text-3xl font-semibold mb-8 border-l-4 border-cyan-400 pl-4 text-white">আইকন ও লোগো</h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+                    <div class="card"><div class="card-content"><p class="text-lg font-medium mb-4 flex-grow">স্ট্যাটিক আইকন</p><a href="https://drive.google.com/drive/folders/1t6LMZxY-fFV1v3x-urXffdkJZcJml2SJ" target="_blank" class="bg-cyan-500 text-white font-bold py-3 px-4 rounded-md text-center hover:bg-cyan-600 transition-colors duration-300 w-full"><i class="fa-solid fa-icons mr-2"></i> ডাউনলোড করুন</a></div></div>
+                    <div class="card"><div class="card-content"><p class="text-lg font-medium mb-4 flex-grow">অ্যানিমেটেড আইকন</p><a href="https://drive.google.com/drive/folders/19sW61DnOsH8papJ7djlLHInPzUnS4-M7" target="_blank" class="bg-cyan-500 text-white font-bold py-3 px-4 rounded-md text-center hover:bg-cyan-600 transition-colors duration-300 w-full"><i class="fa-solid fa-film mr-2"></i> ডাউনলোড করুন</a></div></div>
+                    <div class="card"><div class="card-content"><p class="text-lg font-medium mb-4 flex-grow">অ্যানিমেটেড লোগো</p><a href="https://drive.google.com/drive/folders/1Ds5meItbWEFkBFqbgsNUdXlEEALKnhTX" target="_blank" class="bg-cyan-500 text-white font-bold py-3 px-4 rounded-md text-center hover:bg-cyan-600 transition-colors duration-300 w-full"><i class="fa-solid fa-play-circle mr-2"></i> ডাউনলোড করুন</a></div></div>
+                    <div class="card"><div class="card-content"><p class="text-lg font-medium mb-4 flex-grow">২৫+ সাদা গ্লোয়িং আইকন</p><a href="https://drive.google.com/drive/folders/1AzK2nVibEdSrNluziAQd2iEkQIF3iEB1" target="_blank" class="bg-cyan-500 text-white font-bold py-3 px-4 rounded-md text-center hover:bg-cyan-600 transition-colors duration-300 w-full"><i class="fa-solid fa-star mr-2"></i> ডাউনলোড করুন</a></div></div>
+                </div>
+            </section>
+
+            <!-- Category: Video Editing Assets -->
+            <section id="video-assets" class="reveal">
+                <h2 class="text-3xl font-semibold mb-8 border-l-4 border-pink-500 pl-4 text-white">ভিডিও এডিটিং অ্যাসেট</h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+                    <div class="card"><div class="card-content"><p class="text-lg font-medium mb-4 flex-grow">অ্যারো</p><a href="https://drive.google.com/drive/folders/12rGF-xaM104zQTZjKNjhmHHs65qhK-Tt" target="_blank" class="bg-pink-500 text-white font-bold py-3 px-4 rounded-md text-center hover:bg-pink-600 transition-colors duration-300 w-full"><i class="fa-solid fa-arrow-right mr-2"></i> ডাউনলোড</a></div></div>
+                    <div class="card"><div class="card-content"><p class="text-lg font-medium mb-4 flex-grow">১৫+ অ্যানিমেটেড অ্যারো</p><a href="https://drive.google.com/drive/folders/1u4rDjw_2IbOTNBhBNePDXEct-em3gOwZ" target="_blank" class="bg-pink-500 text-white font-bold py-3 px-4 rounded-md text-center hover:bg-pink-600 transition-colors duration-300 w-full"><i class="fa-solid fa-location-arrow mr-2"></i> ডাউনলোড</a></div></div>
+                    <div class="card"><div class="card-content"><p class="text-lg font-medium mb-4 flex-grow">গ্রিন স্ক্রিন</p><a href="https://drive.google.com/drive/folders/1xN2mXd5JJBuuWIYYRp2mICfDILKfaD3Q" target="_blank" class="bg-pink-500 text-white font-bold py-3 px-4 rounded-md text-center hover:bg-pink-600 transition-colors duration-300 w-full"><i class="fa-solid fa-desktop mr-2"></i> ডাউনলোড</a></div></div>
+                    <div class="card"><div class="card-content"><p class="text-lg font-medium mb-4 flex-grow">GIFs</p><a href="https://drive.google.com/drive/folders/1Fq5OTTYvxNzpNrtO2qQNczZ953fF8VrY" target="_blank" class="bg-pink-500 text-white font-bold py-3 px-4 rounded-md text-center hover:bg-pink-600 transition-colors duration-300 w-full"><i class="fa-solid fa-photo-film mr-2"></i> ডাউনলোড</a></div></div>
+                    <div class="card"><div class="card-content"><p class="text-lg font-medium mb-4 flex-grow">৮০+ ভিডিও ক্লিপ</p><a href="https://drive.google.com/drive/folders/1IrdzM8Z6MwgGc6mMd1KG8WkuPCSTIHcm" target="_blank" class="bg-pink-500 text-white font-bold py-3 px-4 rounded-md text-center hover:bg-pink-600 transition-colors duration-300 w-full"><i class="fa-solid fa-video mr-2"></i> ডাউনলোড</a></div></div>
+                    <div class="card"><div class="card-content"><p class="text-lg font-medium mb-4 flex-grow">সাউন্ড ইফেক্টস (প্যাক ১)</p><a href="https://drive.google.com/drive/folders/10vR3XlJ_2A9c-o36EOIAQX8Cc65Zfg61" target="_blank" class="bg-pink-500 text-white font-bold py-3 px-4 rounded-md text-center hover:bg-pink-600 transition-colors duration-300 w-full"><i class="fa-solid fa-volume-high mr-2"></i> ডাউনলোড</a></div></div>
+                    <div class="card"><div class="card-content"><p class="text-lg font-medium mb-4 flex-grow">সাউন্ড ইফেক্টস (প্যাক ২)</p><a href="https://drive.google.com/drive/folders/1gs382gQo3pXgPEquInhh25Gz9iZphLa9" target="_blank" class="bg-pink-500 text-white font-bold py-3 px-4 rounded-md text-center hover:bg-pink-600 transition-colors duration-300 w-full"><i class="fa-solid fa-music mr-2"></i> ডাউনলোড</a></div></div>
+                    <div class="card"><div class="card-content"><p class="text-lg font-medium mb-4 flex-grow">ট্রানজিশন (প্যাক ১)</p><a href="https://drive.google.com/drive/folders/1JwBP2ug3AKTl-l5-R0wwqQQydlYB9Ud5" target="_blank" class="bg-pink-500 text-white font-bold py-3 px-4 rounded-md text-center hover:bg-pink-600 transition-colors duration-300 w-full"><i class="fa-solid fa-wand-magic-sparkles mr-2"></i> ডাউনলোড</a></div></div>
+                    <div class="card"><div class="card-content"><p class="text-lg font-medium mb-4 flex-grow">ট্রানজিশন (প্যাক ২)</p><a href="https://drive.google.com/drive/folders/1qwiUBCOXfiVVP7WizP6XdbZInjLN2y7o" target="_blank" class="bg-pink-500 text-white font-bold py-3 px-4 rounded-md text-center hover:bg-pink-600 transition-colors duration-300 w-full"><i class="fa-solid fa-layer-group mr-2"></i> ডাউনলোড</a></div></div>
+                    <div class="card"><div class="card-content"><p class="text-lg font-medium mb-4 flex-grow">ওভারলে</p><a href="https://drive.google.com/drive/folders/1WobS6xLS_IJggS8UbyV8NYR_lYit5NPR" target="_blank" class="bg-pink-500 text-white font-bold py-3 px-4 rounded-md text-center hover:bg-pink-600 transition-colors duration-300 w-full"><i class="fa-solid fa-object-group mr-2"></i> ডাউনলোড</a></div></div>
+                </div>
+            </section>
+
+            <!-- Category: Thumbnail & Design -->
+            <section id="thumbnail" class="reveal">
+                <h2 class="text-3xl font-semibold mb-8 border-l-4 border-emerald-400 pl-4 text-white">থাম্বনেইল ও ডিজাইন</h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+                    <div class="card"><div class="card-content"><p class="text-lg font-medium mb-4 flex-grow">৩০০+ ডিজাইন ম্যাটেরিয়াল</p><a href="https://drive.google.com/drive/folders/18FUvGBBJQAVJCEC9dkxuyUGrZiVmWTvQ" target="_blank" class="bg-emerald-500 text-white font-bold py-3 px-4 rounded-md text-center hover:bg-emerald-600 transition-colors duration-300 w-full"><i class="fa-solid fa-palette mr-2"></i> ডাউনলোড</a></div></div>
+                    <div class="card"><div class="card-content"><p class="text-lg font-medium mb-4 flex-grow">২০০+ VIP ব্যাকগ্রাউন্ড</p><a href="https://drive.google.com/drive/folders/1naHPSQPtdVRFmZ_O6byXgphgm54Gs_YJ" target="_blank" class="bg-emerald-500 text-white font-bold py-3 px-4 rounded-md text-center hover:bg-emerald-600 transition-colors duration-300 w-full"><i class="fa-solid fa-image mr-2"></i> ডাউনলোড</a></div></div>
+                    <div class="card"><div class="card-content"><p class="text-lg font-medium mb-4 flex-grow">ক্যারেক্টার</p><a href="https://drive.google.com/drive/folders/1jh0kdXjJ2NigCX_MmnL0zjtQNUcgt10h" target="_blank" class="bg-emerald-500 text-white font-bold py-3 px-4 rounded-md text-center hover:bg-emerald-600 transition-colors duration-300 w-full"><i class="fa-solid fa-user-astronaut mr-2"></i> ডাউনলোড</a></div></div>
+                    <div class="card"><div class="card-content"><p class="text-lg font-medium mb-4 flex-grow">হ্যান্ডস</p><a href="https://drive.google.com/drive/folders/1rMs1cKlQXmbpIlZj07K1sRUEt2OP4guq" target="_blank" class="bg-emerald-500 text-white font-bold py-3 px-4 rounded-md text-center hover:bg-emerald-600 transition-colors duration-300 w-full"><i class="fa-solid fa-hand-point-up mr-2"></i> ডাউনলোড</a></div></div>
+                    <div class="card"><div class="card-content"><p class="text-lg font-medium mb-4 flex-grow">ব্যাকগ্রাউন্ড (প্যাক ১)</p><a href="https://drive.google.com/drive/folders/1tTyX89RpsHcXNtjsyNddjOSl0E5a-52C" target="_blank" class="bg-emerald-500 text-white font-bold py-3 px-4 rounded-md text-center hover:bg-emerald-600 transition-colors duration-300 w-full"><i class="fa-solid fa-images mr-2"></i> ডাউনলোড</a></div></div>
+                    <div class="card"><div class="card-content"><p class="text-lg font-medium mb-4 flex-grow">ব্যাকগ্রাউন্ড (প্যাক ২)</p><a href="https://drive.google.com/drive/folders/1IFo2IWVgngUaN62k81qZdUCSuTnu29r2" target="_blank" class="bg-emerald-500 text-white font-bold py-3 px-4 rounded-md text-center hover:bg-emerald-600 transition-colors duration-300 w-full"><i class="fa-solid fa-photo-film mr-2"></i> ডাউনলোড</a></div></div>
+                    <div class="card"><div class="card-content"><p class="text-lg font-medium mb-4 flex-grow">সাধারণ ছবি</p><a href="https://drive.google.com/drive/folders/13eUfWhZVgXPMT5-c3sORmeD2u-O-W37A" target="_blank" class="bg-emerald-500 text-white font-bold py-3 px-4 rounded-md text-center hover:bg-emerald-600 transition-colors duration-300 w-full"><i class="fa-regular fa-image mr-2"></i> ডাউনলোড</a></div></div>
+                </div>
+            </section>
+
+            <!-- Category: Smart Pack -->
+            <section id="smart-pack" class="reveal">
+                <h2 class="text-3xl font-semibold mb-8 border-l-4 border-violet-500 pl-4 text-white">স্মার্ট প্যাক</h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+                     <div class="card"><div class="card-content"><p class="text-lg font-medium mb-4 flex-grow">স্মার্ট প্যাক</p><a href="https://drive.google.com/drive/folders/1w1s7dyddloz8u2ASvbxYvXhGHnbxXKhJ" target="_blank" class="bg-violet-500 text-white font-bold py-3 px-4 rounded-md text-center hover:bg-violet-600 transition-colors duration-300 w-full"><i class="fa-solid fa-box-archive mr-2"></i> ডাউনলোড</a></div></div>
+                </div>
+            </section>
+
+            <!-- Category: Software -->
+            <section id="software" class="reveal">
+                <h2 class="text-3xl font-semibold mb-8 border-l-4 border-amber-400 pl-4 text-white">সফটওয়্যার</h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+                     <div class="card"><div class="card-content"><p class="text-lg font-medium mb-4 flex-grow">সফটওয়্যার প্যাক</p><a href="https://drive.google.com/file/d/1cPL3uH90ztJmPRCr46v557ms9RWC8HaY/view?usp=drivesdk" target="_blank" class="bg-amber-500 text-white font-bold py-3 px-4 rounded-md text-center hover:bg-amber-600 transition-colors duration-300 w-full"><i class="fa-solid fa-download mr-2"></i> ডাউনলোড</a></div></div>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="text-center py-8 mt-12 border-t border-slate-800">
+        <p class="text-slate-500">&copy; 2024 - Creator's Ultimate Pack. Happy Creating!</p>
+    </footer>
+
+    <script>
+        // Scroll Animation Logic
+        const revealElements = document.querySelectorAll('.reveal');
+
+        const revealObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, {
+            threshold: 0.1
+        });
+
+        revealElements.forEach(elem => {
+            revealObserver.observe(elem);
+        });
+    </script>
+
+</body>
+</html>
+
+
