@@ -16,11 +16,23 @@
         body {
             font-family: 'Hind Siliguri', sans-serif;
             background-color: #0f172a;
-            background-image: linear-gradient(315deg, #020617 0%, #0f172a 74%);
+            color: #e2e8f0;
             min-height: 100vh;
             cursor: none;
         }
         
+        #scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #38bdf8, #ec4899, #86efac);
+            background-size: 200%;
+            width: 0%;
+            z-index: 10001;
+            animation: text-shine 5s linear infinite;
+        }
+
         /* Custom Cursor */
         .cursor-dot, .cursor-outline {
             pointer-events: none;
@@ -43,85 +55,65 @@
             height: 40px;
             border: 2px solid #38bdf8;
         }
-        .cursor-dot.hidden, .cursor-outline.hidden {
-            opacity: 0;
-        }
+        .cursor-dot.hidden, .cursor-outline.hidden { opacity: 0; }
         .cursor-outline.hovered {
             transform: translate(-50%, -50%) scale(1.5);
-             border-color: #86efac;
+            border-color: #86efac;
         }
-
 
         /* Preloader */
         #preloader {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: #0f172a;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 10000;
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: #0f172a; display: flex; justify-content: center; align-items: center; z-index: 10000;
             transition: opacity 0.5s ease-out, visibility 0.5s ease-out;
         }
-        #preloader.loaded {
-            opacity: 0;
-            visibility: hidden;
-        }
+        #preloader.loaded { opacity: 0; visibility: hidden; }
         .spinner {
-            width: 50px;
-            height: 50px;
-            border: 5px solid #334155;
-            border-top-color: #38bdf8;
-            border-radius: 50%;
+            width: 50px; height: 50px; border: 5px solid #334155;
+            border-top-color: #38bdf8; border-radius: 50%;
             animation: spin 1s linear infinite;
         }
-        @keyframes spin {
-            to { transform: rotate(360deg); }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        header {
+            background: linear-gradient(-45deg, #0f172a, #131c31, #0b1220, #1e293b);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+        }
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
 
         .gradient-text {
             background: linear-gradient(90deg, #38bdf8, #ec4899, #86efac);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            color: transparent;
-            background-size: 200% auto;
-            animation: text-shine 5s linear infinite;
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            background-clip: text; color: transparent;
+            background-size: 200% auto; animation: text-shine 5s linear infinite;
             text-shadow: 0 0 15px rgba(236, 72, 153, 0.4), 0 0 25px rgba(56, 189, 248, 0.4);
         }
+        @keyframes text-shine { to { background-position: 200% center; } }
         
-        @keyframes text-shine {
-            to { background-position: 200% center; }
-        }
-        
-        nav { box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1); }
-
-        .card-container {
-             perspective: 1000px;
-        }
-
+        .card-container { perspective: 1000px; }
         .card {
-            background: #1e293b;
-            border: 1px solid #334155;
-            position: relative;
-            overflow: hidden;
+            background: #1e293b; border: 1px solid #334155;
+            position: relative; overflow: hidden;
             transition: transform 0.4s ease, box-shadow 0.4s ease;
             transform-style: preserve-3d;
         }
-
-        /* Section-specific glows */
-        #icons .card:hover { box-shadow: 0 10px 40px rgba(56, 189, 248, 0.3); }
-        #video-assets .card:hover { box-shadow: 0 10px 40px rgba(236, 72, 153, 0.3); }
-        #sound-effects .card:hover { box-shadow: 0 10px 40px rgba(45, 212, 191, 0.3); }
-        #thumbnail .card:hover { box-shadow: 0 10px 40px rgba(16, 185, 129, 0.3); }
-        #smart-pack .card:hover { box-shadow: 0 10px 40px rgba(139, 92, 246, 0.3); }
-        #software .card:hover { box-shadow: 0 10px 40px rgba(251, 191, 36, 0.3); }
-        #ai .card:hover { box-shadow: 0 10px 40px rgba(251, 146, 60, 0.3); }
-
-
+        .card::before {
+            content: '';
+            position: absolute;
+            left: var(--x, 50%);
+            top: var(--y, 50%);
+            transform: translate(-50%, -50%);
+            width: 350px; height: 350px;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.08), transparent 60%);
+            opacity: 0; transition: opacity 0.4s ease; pointer-events: none;
+        }
+        .card:hover::before { opacity: 1; }
+        
         #icons h2 { text-shadow: 0 0 12px rgba(56, 189, 248, 0.5); }
         #video-assets h2 { text-shadow: 0 0 12px rgba(236, 72, 153, 0.5); }
         #sound-effects h2 { text-shadow: 0 0 12px rgba(45, 212, 191, 0.5); }
@@ -129,54 +121,56 @@
         #smart-pack h2 { text-shadow: 0 0 12px rgba(139, 92, 246, 0.5); }
         #software h2 { text-shadow: 0 0 12px rgba(251, 191, 36, 0.5); }
         #ai h2 { text-shadow: 0 0 12px rgba(251, 146, 60, 0.5); }
-
+        #tutorial h2 { text-shadow: 0 0 12px rgba(244, 63, 94, 0.5); }
 
         .card-content {
-            position: relative;
-            background: #1e293b;
-            padding: 1.5rem;
-            border-radius: 0.5rem;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
+            position: relative; background: transparent; padding: 1.5rem;
+            border-radius: 0.5rem; height: 100%;
+            display: flex; flex-direction: column; justify-content: space-between;
             transform: translateZ(20px);
         }
         
+        .action-btn {
+            position: relative; overflow: hidden; transition: filter 0.3s ease;
+            z-index: 1;
+        }
+        .action-btn:hover { filter: brightness(1.2); }
+        .action-btn::before {
+            content: ''; position: absolute; top: 0; left: -100%;
+            width: 100%; height: 100%;
+            background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.25), transparent);
+            transition: left 0.6s ease;
+        }
+        .action-btn:hover::before { left: 100%; }
+
         .reveal {
-            opacity: 0;
-            transform: translateY(30px);
+            opacity: 0; transform: translateY(30px);
             transition: opacity 0.8s ease-out, transform 0.8s ease-out;
         }
         .reveal.visible { opacity: 1; transform: translateY(0); }
         
         #to-top-btn {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            opacity: 0;
-            visibility: hidden;
+            position: fixed; bottom: 20px; right: 20px;
+            opacity: 0; visibility: hidden;
             transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out, transform 0.3s ease;
         }
         #to-top-btn.show { opacity: 1; visibility: visible; }
         #to-top-btn:hover { transform: scale(1.1); }
-
+        
+        .lang-btn.active { background-color: #38bdf8; color: white; }
     </style>
 </head>
-<body class="bg-slate-900 text-slate-200">
-
-    <!-- Preloader -->
+<body>
+    <div id="scroll-progress"></div>
     <div id="preloader"><div class="spinner"></div></div>
-    
-    <!-- Custom Cursor -->
     <div class="cursor-dot"></div>
     <div class="cursor-outline"></div>
 
     <!-- Header Section -->
-    <header class="text-center py-12 md:py-20 border-b border-slate-700">
+    <header class="text-center py-12 md:py-20 border-b border-slate-700/50">
         <div class="container mx-auto px-4">
             <h1 class="text-4xl md:text-6xl font-bold gradient-text mb-4">DAKATI VAI Ultimate Pack</h1>
-            <p class="text-lg md:text-xl text-slate-400 max-w-3xl mx-auto">আপনার ভিডিও এডিটিং এবং থাম্বনেইল ডিজাইনের জন্য প্রয়োজনীয় সবকিছু এখানে!</p>
+            <p data-lang-key="headerSubtitle" class="text-lg md:text-xl text-slate-400 max-w-3xl mx-auto"></p>
         </div>
     </header>
 
@@ -185,29 +179,33 @@
         <div class="container mx-auto px-4 py-3 flex flex-col md:flex-row justify-center items-center">
             <nav class="flex-grow">
                 <div class="flex flex-wrap justify-center items-center space-x-4 md:space-x-6 text-sm md:text-base">
-                    <a href="#icons" class="text-slate-300 hover:text-cyan-400 transition-colors duration-300 font-medium">আইকন</a>
-                    <a href="#video-assets" class="text-slate-300 hover:text-pink-400 transition-colors duration-300 font-medium">ভিডিও</a>
-                    <a href="#sound-effects" class="text-slate-300 hover:text-teal-400 transition-colors duration-300 font-medium">সাউন্ড ইফেক্টস</a>
-                    <a href="#thumbnail" class="text-slate-300 hover:text-emerald-400 transition-colors duration-300 font-medium">থাম্বনেইল</a>
-                    <a href="#smart-pack" class="text-slate-300 hover:text-violet-400 transition-colors duration-300 font-medium">স্মার্ট প্যাক</a>
-                    <a href="#software" class="text-slate-300 hover:text-amber-400 transition-colors duration-300 font-medium">সফটওয়্যার</a>
-                    <a href="#ai" class="text-slate-300 hover:text-orange-400 transition-colors duration-300 font-medium">AI</a>
+                    <a href="#icons" data-lang-key="navIcons" class="text-slate-300 hover:text-cyan-400 transition-colors duration-300 font-medium"></a>
+                    <a href="#video-assets" data-lang-key="navVideo" class="text-slate-300 hover:text-pink-400 transition-colors duration-300 font-medium"></a>
+                    <a href="#sound-effects" data-lang-key="navSound" class="text-slate-300 hover:text-teal-400 transition-colors duration-300 font-medium"></a>
+                    <a href="#thumbnail" data-lang-key="navThumbnail" class="text-slate-300 hover:text-emerald-400 transition-colors duration-300 font-medium"></a>
+                    <a href="#smart-pack" data-lang-key="navSmart" class="text-slate-300 hover:text-violet-400 transition-colors duration-300 font-medium"></a>
+                    <a href="#software" data-lang-key="navSoftware" class="text-slate-300 hover:text-amber-400 transition-colors duration-300 font-medium"></a>
+                    <a href="#ai" data-lang-key="navAI" class="text-slate-300 hover:text-orange-400 transition-colors duration-300 font-medium"></a>
+                    <a href="#tutorial" data-lang-key="navTutorial" class="text-slate-300 hover:text-red-400 transition-colors duration-300 font-medium"></a>
                 </div>
             </nav>
-            <div class="relative mt-3 md:mt-0 md:ml-6">
-                <input type="search" id="search-box" placeholder="এখানে খুঁজুন..." class="bg-slate-800 border border-slate-600 text-slate-300 text-sm rounded-lg focus:ring-cyan-500 focus:border-cyan-500 block w-full pl-10 p-2.5" autocomplete="off">
+            <div class="relative mt-3 md:mt-0 md:ml-6 flex items-center">
+                <input type="search" id="search-box" data-lang-placeholder-key="searchPlaceholder" class="bg-slate-800 border border-slate-600 text-slate-300 text-sm rounded-lg focus:ring-cyan-500 focus:border-cyan-500 block w-full pl-10 p-2.5" autocomplete="off">
                 <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                     <i class="fa-solid fa-search text-slate-400"></i>
+                </div>
+                 <div class="ml-4 flex items-center space-x-1 bg-slate-800 border border-slate-600 rounded-lg p-1">
+                    <button id="lang-bn" class="lang-btn px-3 py-1 text-sm rounded-md transition-colors duration-300">BN</button>
+                    <button id="lang-en" class="lang-btn px-3 py-1 text-sm rounded-md transition-colors duration-300">EN</button>
                 </div>
             </div>
         </div>
     </div>
 
-
     <main class="container mx-auto px-4 py-12">
         <div class="space-y-20">
-            <p id="no-results" class="text-center text-xl text-slate-400 hidden">কোনো ফলাফল পাওয়া যায়নি।</p>
-            <!-- Sections will be injected here -->
+            <p id="no-results" data-lang-key="noResults" class="text-center text-xl text-slate-400 hidden"></p>
+            <!-- Sections will be injected here by JS -->
         </div>
     </main>
     
@@ -218,16 +216,13 @@
                 <i class="fa-solid fa-times text-2xl"></i>
             </button>
             <h3 id="modal-title" class="text-2xl font-bold mb-6 text-white"></h3>
-            <div id="modal-body" class="space-y-4">
-                <!-- Modal links will be injected here -->
-            </div>
+            <div id="modal-body" class="space-y-4"></div>
         </div>
     </div>
 
-
     <!-- Footer -->
     <footer class="text-center py-8 mt-12 border-t border-slate-800">
-        <p class="text-slate-500">&copy; 2024 - DAKATI VAI Ultimate Pack. Happy Creating!</p>
+        <p data-lang-key="footer" class="text-slate-500"></p>
     </footer>
 
     <!-- Back to top button -->
@@ -237,98 +232,108 @@
 
     <script>
     document.addEventListener('DOMContentLoaded', () => {
+        const contentData = {
+            "icons": { "color": "cyan", "items": [ { "id": "static_icons", "link": "https://drive.google.com/drive/folders/1t6LMZxY-fFV1v3x-urXffdkJZcJml2SJ", "icon": "fa-icons" }, { "id": "animated_icons", "link": "https://drive.google.com/drive/folders/19sW61DnOsH8papJ7djlLHInPzUnS4-M7", "icon": "fa-film" }, { "id": "animated_logos", "link": "https://drive.google.com/drive/folders/1Ds5meItbWEFkBFqbgsNUdXlEEALKnhTX", "icon": "fa-play-circle" }, { "id": "glowing_icons", "link": "https://drive.google.com/drive/folders/1AzK2nVibEdSrNluziAQd2iEkQIF3iEB1", "icon": "fa-star" } ] },
+            "video-assets": { "color": "pink", "items": [ { "id": "animated_arrows", "link": "https://drive.google.com/drive/folders/1u4rDjw_2IbOTNBhBNePDXEct-em3gOwZ", "icon": "fa-location-arrow" }, { "id": "green_screen", "link": "https://drive.google.com/drive/folders/1xN2mXd5JJBuuWIYYRp2mICfDILKfaD3Q", "icon": "fa-desktop" }, { "id": "gifs", "link": "https://drive.google.com/drive/folders/1Fq5OTTYvxNzpNrtO2qQNczZ953fF8VrY", "icon": "fa-photo-film" }, { "id": "video_clips", "link": "https://drive.google.com/drive/folders/1IrdzM8Z6MwgGc6mMd1KG8WkuPCSTIHcm", "icon": "fa-video" }, { "id": "transitions1", "link": "https://drive.google.com/drive/folders/1JwBP2ug3AKTl-l5-R0wwqQQydlYB9Ud5", "icon": "fa-wand-magic-sparkles" }, { "id": "transitions2", "link": "https://drive.google.com/drive/folders/1qwiUBCOXfiVVP7WizP6XdbZInjLN2y7o", "icon": "fa-layer-group" }, { "id": "overlays", "link": "https://drive.google.com/drive/folders/1WobS6xLS_IJggS8UbyV8NYR_lYit5NPR", "icon": "fa-object-group" } ] },
+            "sound-effects": { "color": "teal", "items": [ { "id": "sfx1", "link": "https://drive.google.com/drive/folders/10vR3XlJ_2A9c-o36EOIAQX8Cc65Zfg61", "icon": "fa-volume-high" }, { "id": "sfx2", "link": "https://drive.google.com/drive/folders/1gs382gQo3pXgPEquInhh25Gz9iZphLa9", "icon": "fa-music" } ] },
+            "thumbnail": { "color": "emerald", "items": [ { "id": "arrows", "link": "https://drive.google.com/drive/folders/12rGF-xaM104zQTZjKNjhmHHs65qhK-Tt", "icon": "fa-arrow-right" }, { "id": "design_materials", "link": "https://drive.google.com/drive/folders/18FUvGBBJQAVJCEC9dkxuyUGrZiVmWTvQ", "icon": "fa-palette" }, { "id": "vip_backgrounds", "link": "https://drive.google.com/drive/folders/1naHPSQPtdVRFmZ_O6byXgphgm54Gs_YJ", "icon": "fa-image" }, { "id": "characters", "link": "https://drive.google.com/drive/folders/1jh0kdXjJ2NigCX_MmnL0zjtQNUcgt10h", "icon": "fa-user-astronaut" }, { "id": "hands", "link": "https://drive.google.com/drive/folders/1rMs1cKlQXmbpIlZj07K1sRUEt2OP4guq", "icon": "fa-hand-point-up" }, { "id": "backgrounds", "icon": "fa-images", "type": "modal", "modalId": "background-modal", "subItems": [ { "id": "bg1", "link": "https://drive.google.com/drive/folders/1tTyX89RpsHcXNtjsyNddjOSl0E5a-52C" }, { "id": "bg2", "link": "https://drive.google.com/drive/folders/1IFo2IWVgngUaN62k81qZdUCSuTnu29r2" } ] }, { "id": "general_images", "link": "https://drive.google.com/drive/folders/13eUfWhZVgXPMT5-c3sORmeD2u-O-W37A", "icon": "fa-regular fa-image" } ] },
+            "smart-pack": { "color": "violet", "items": [ { "id": "smart_pack", "link": "https://drive.google.com/drive/folders/1w1s7dyddloz8u2ASvbxYvXhGHnbxXKhJ", "icon": "fa-box-archive" } ] },
+            "software": { "color": "amber", "items": [ { "id": "software_pack", "link": "https://drive.google.com/file/d/1cPL3uH90ztJmPRCr46v557ms9RWC8HaY/view?usp=drivesdk", "icon": "fa-download" } ] },
+            "ai": { "color": "orange", "items": [ { "id": "lm_arena", "link": "https://beta.lmarena.ai/?fbclid=IwY2xjawLRr75leHRuA2FlbQIxMABicmlkETFwbDRiWk1MaUt3ak15MjNSAR4hYto65TuEnBaglPiswfSmJmoEVCMcXJpaMvB9q34WX4B0LrDqWJ5ruTIRzg_aem_YiumGviMCDA1X0XnBhwjfA", "icon": "fa-brain" } ] },
+            "tutorial": { "color": "red", "items": [ 
+                { "id": "video_tutorials_combined", "icon": "fa-brands fa-youtube", "type": "modal", "modalId": "tutorial-modal", "subItems": [
+                    { "id": "video_tutorials_1", "link": "https://www.youtube.com/watch?v=uWveRquGOqk&list=PLBbIq4hhNL1pnkJBa-b-4wCrdKbAKh6pXr" },
+                    { "id": "video_tutorials_2", "link": "https://www.youtube.com/playlist?list=PLW-zSkCnZ-gABGZU8--ISUauyewG40Yex" },
+                    { "id": "video_tutorials_3", "link": "https://youtu.be/eCsM0r3RNc4?si=ofinRMKHRGLNoxfv" }
+                ]}
+            ] }
+        };
 
-        const data = {
-            "icons": {
-                "title": "আইকন ও লোগো",
-                "color": "cyan",
-                "items": [
-                    { "name": "স্ট্যাটিক আইকন", "link": "https://drive.google.com/drive/folders/1t6LMZxY-fFV1v3x-urXffdkJZcJml2SJ", "icon": "fa-icons" },
-                    { "name": "অ্যানিমেটেড আইকন", "link": "https://drive.google.com/drive/folders/19sW61DnOsH8papJ7djlLHInPzUnS4-M7", "icon": "fa-film" },
-                    { "name": "অ্যানিমেটেড লোগো", "link": "https://drive.google.com/drive/folders/1Ds5meItbWEFkBFqbgsNUdXlEEALKnhTX", "icon": "fa-play-circle" },
-                    { "name": "২৫+ সাদা গ্লোয়িং আইকন", "link": "https://drive.google.com/drive/folders/1AzK2nVibEdSrNluziAQd2iEkQIF3iEB1", "icon": "fa-star" }
-                ]
+        const translations = {
+            "bn": {
+                "headerSubtitle": "আপনার ভিডিও এডিটিং এবং থাম্বনেইল ডিজাইনের জন্য প্রয়োজনীয় সবকিছু এখানে!",
+                "navIcons": "আইকন", "navVideo": "ভিডিও", "navSound": "সাউন্ড ইফেক্টস", "navThumbnail": "থাম্বনেইল", "navSmart": "স্মার্ট প্যাক", "navSoftware": "সফটওয়্যার", "navAI": "এআই", "navTutorial": "টিউটোরিয়াল",
+                "searchPlaceholder": "এখানে খুঁজুন...", "noResults": "কোনো ফলাফল পাওয়া যায়নি।",
+                "footer": "&copy; 2024 - DAKATI VAI Ultimate Pack. Happy Creating!", "btnDownload": "ডাউনলোড", "btnVisitSite": "সাইটে যান", "btnViewOptions": "অপশন দেখুন",
+                "sections": { "icons": "আইকন ও লোগো", "video-assets": "ভিডিও এডিটিং অ্যাসেট", "sound-effects": "সাউন্ড ইফেক্টস", "thumbnail": "থাম্বনেইল ও ডিজাইন", "smart-pack": "স্মার্ট প্যাক", "software": "সফটওয়্যার", "ai": "এআই টুলস", "tutorial": "টিউটোরিয়াল" },
+                "items": { 
+                    "static_icons": "স্ট্যাটিক আইকন", "animated_icons": "অ্যানিমেটেড আইকন", "animated_logos": "অ্যানিমেটেড লোগো", "glowing_icons": "২৫+ সাদা গ্লোয়িং আইকন", 
+                    "animated_arrows": "১৫+ অ্যানিমেটেড অ্যারো", "green_screen": "গ্রিন স্ক্রিন", "gifs": "GIFs", "video_clips": "৮০+ ভিডিও ক্লিপ", "transitions1": "ট্রানজিশন (প্যাক ১)", "transitions2": "ট্রানজিশন (প্যাক ২)", "overlays": "ওভারলে", 
+                    "sfx1": "সাউন্ড ইফেক্টস (প্যাক ১)", "sfx2": "সাউন্ড ইফেক্টস (প্যাক ২)", 
+                    "arrows": "অ্যারো", "design_materials": "৩০০+ ডিজাইন ম্যাটেরিয়াল", "vip_backgrounds": "২০০+ VIP ব্যাকগ্রাউন্ড", "characters": "ক্যারেক্টার", "hands": "হ্যান্ডস", "backgrounds": "ব্যাকগ্রাউন্ড", "bg1": "ব্যাকগ্রাউন্ড (প্যাক ১)", "bg2": "ব্যাকগ্রাউন্ড (প্যাক ২)", "general_images": "সাধারণ ছবি", 
+                    "smart_pack": "স্মার্ট প্যাক", 
+                    "software_pack": "সফটওয়্যার প্যাক", 
+                    "lm_arena": "LM Arena AI", 
+                    "video_tutorials_combined": "ভিডিও এডিটিং টিউটোরিয়ালস",
+                    "video_tutorials_1": "James Prince Course",
+                    "video_tutorials_2": "GFXMentor Course",
+                    "video_tutorials_3": "Learnit Training "
+                }
             },
-            "video-assets": {
-                "title": "ভিডিও এডিটিং অ্যাসেট",
-                "color": "pink",
-                "items": [
-                    { "name": "১৫+ অ্যানিমেটেড অ্যারো", "link": "https://drive.google.com/drive/folders/1u4rDjw_2IbOTNBhBNePDXEct-em3gOwZ", "icon": "fa-location-arrow" },
-                    { "name": "গ্রিন স্ক্রিন", "link": "https://drive.google.com/drive/folders/1xN2mXd5JJBuuWIYYRp2mICfDILKfaD3Q", "icon": "fa-desktop" },
-                    { "name": "GIFs", "link": "https://drive.google.com/drive/folders/1Fq5OTTYvxNzpNrtO2qQNczZ953fF8VrY", "icon": "fa-photo-film" },
-                    { "name": "৮০+ ভিডিও ক্লিপ", "link": "https://drive.google.com/drive/folders/1IrdzM8Z6MwgGc6mMd1KG8WkuPCSTIHcm", "icon": "fa-video" },
-                    { "name": "ট্রানজিশন (প্যাক ১)", "link": "https://drive.google.com/drive/folders/1JwBP2ug3AKTl-l5-R0wwqQQydlYB9Ud5", "icon": "fa-wand-magic-sparkles" },
-                    { "name": "ট্রানজিশন (প্যাক ২)", "link": "https://drive.google.com/drive/folders/1qwiUBCOXfiVVP7WizP6XdbZInjLN2y7o", "icon": "fa-layer-group" },
-                    { "name": "ওভারলে", "link": "https://drive.google.com/drive/folders/1WobS6xLS_IJggS8UbyV8NYR_lYit5NPR", "icon": "fa-object-group" }
-                ]
-            },
-             "sound-effects": {
-                "title": "সাউন্ড ইফেক্টস",
-                "color": "teal",
-                "items": [
-                    { "name": "সাউন্ড ইফেক্টস (প্যাক ১)", "link": "https://drive.google.com/drive/folders/10vR3XlJ_2A9c-o36EOIAQX8Cc65Zfg61", "icon": "fa-volume-high" },
-                    { "name": "সাউন্ড ইফেক্টস (প্যাক ২)", "link": "https://drive.google.com/drive/folders/1gs382gQo3pXgPEquInhh25Gz9iZphLa9", "icon": "fa-music" }
-                ]
-            },
-            "thumbnail": {
-                "title": "থাম্বনেইল ও ডিজাইন",
-                "color": "emerald",
-                "items": [
-                    { "name": "অ্যারো", "link": "https://drive.google.com/drive/folders/12rGF-xaM104zQTZjKNjhmHHs65qhK-Tt", "icon": "fa-arrow-right" },
-                    { "name": "৩০০+ ডিজাইন ম্যাটেরিয়াল", "link": "https://drive.google.com/drive/folders/18FUvGBBJQAVJCEC9dkxuyUGrZiVmWTvQ", "icon": "fa-palette" },
-                    { "name": "২০০+ VIP ব্যাকগ্রাউন্ড", "link": "https://drive.google.com/drive/folders/1naHPSQPtdVRFmZ_O6byXgphgm54Gs_YJ", "icon": "fa-image" },
-                    { "name": "ক্যারেক্টার", "link": "https://drive.google.com/drive/folders/1jh0kdXjJ2NigCX_MmnL0zjtQNUcgt10h", "icon": "fa-user-astronaut" },
-                    { "name": "হ্যান্ডস", "link": "https://drive.google.com/drive/folders/1rMs1cKlQXmbpIlZj07K1sRUEt2OP4guq", "icon": "fa-hand-point-up" },
-                    { 
-                        "name": "ব্যাকগ্রাউন্ড", "icon": "fa-images", "type": "modal", "modalId": "background-modal",
-                        "subItems": [
-                            { "name": "ব্যাকগ্রাউন্ড (প্যাক ১)", "link": "https://drive.google.com/drive/folders/1tTyX89RpsHcXNtjsyNddjOSl0E5a-52C" },
-                            { "name": "ব্যাকগ্রাউন্ড (প্যাক ২)", "link": "https://drive.google.com/drive/folders/1IFo2IWVgngUaN62k81qZdUCSuTnu29r2" }
-                        ]
-                    },
-                    { "name": "সাধারণ ছবি", "link": "https://drive.google.com/drive/folders/13eUfWhZVgXPMT5-c3sORmeD2u-O-W37A", "icon": "fa-regular fa-image" }
-                ]
-            },
-            "smart-pack": {
-                "title": "স্মার্ট প্যাক",
-                "color": "violet",
-                "items": [
-                    { "name": "স্মার্ট প্যাক", "link": "https://drive.google.com/drive/folders/1w1s7dyddloz8u2ASvbxYvXhGHnbxXKhJ", "icon": "fa-box-archive" }
-                ]
-            },
-            "software": {
-                "title": "সফটওয়্যার",
-                "color": "amber",
-                "items": [
-                    { "name": "সফটওয়্যার প্যাক", "link": "https://drive.google.com/file/d/1cPL3uH90ztJmPRCr46v557ms9RWC8HaY/view?usp=drivesdk", "icon": "fa-download" }
-                ]
-            },
-             "ai": {
-                "title": "AI টুলস",
-                "color": "orange",
-                "items": [
-                    { "name": "LM Arena AI", "link": "https://beta.lmarena.ai/?fbclid=IwY2xjawLRr75leHRuA2FlbQIxMABicmlkETFwbDRiWk1MaUt3ak15MjNSAR4hYto65TuEnBaglPiswfSmJmoEVCMcXJpaMvB9q34WX4B0LrDqWJ5ruTIRzg_aem_YiumGviMCDA1X0XnBhwjfA", "icon": "fa-brain" }
-                ]
+            "en": {
+                "headerSubtitle": "Everything you need for your video editing and thumbnail design!",
+                "navIcons": "Icons", "navVideo": "Video", "navSound": "Sound FX", "navThumbnail": "Thumbnail", "navSmart": "Smart Pack", "navSoftware": "Software", "navAI": "AI", "navTutorial": "Tutorial",
+                "searchPlaceholder": "Search here...", "noResults": "No results found.",
+                "footer": "&copy; 2024 - DAKATI VAI Ultimate Pack. Happy Creating!", "btnDownload": "Download", "btnVisitSite": "Visit Site", "btnViewOptions": "View Options",
+                "sections": { "icons": "Icons & Logos", "video-assets": "Video Editing Assets", "sound-effects": "Sound Effects", "thumbnail": "Thumbnail & Design", "smart-pack": "Smart Pack", "software": "Software", "ai": "AI Tools", "tutorial": "Tutorials" },
+                "items": { 
+                    "static_icons": "Static Icons", "animated_icons": "Animated Icons", "animated_logos": "Animated Logos", "glowing_icons": "25+ White Glowing Icons", 
+                    "animated_arrows": "15+ Animated Arrows", "green_screen": "Green Screen", "gifs": "GIFs", "video_clips": "80+ Video Clips", "transitions1": "Transitions (Pack 1)", "transitions2": "Transitions (Pack 2)", "overlays": "Overlays", 
+                    "sfx1": "Sound Effects (Pack 1)", "sfx2": "Sound Effects (Pack 2)", 
+                    "arrows": "Arrows", "design_materials": "300+ Design Materials", "vip_backgrounds": "200+ VIP Backgrounds", "characters": "Characters", "hands": "Hands", "backgrounds": "Backgrounds", "bg1": "Backgrounds (Pack 1)", "bg2": "Backgrounds (Pack 2)", "general_images": "General Images", 
+                    "smart_pack": "Smart Pack", 
+                    "software_pack": "Software Pack", 
+                    "lm_arena": "LM Arena AI", 
+                    "video_tutorials_combined": "Video Editing Tutorials",
+                    "video_tutorials_1": "James Prince Course",
+                    "video_tutorials_2": "GFXMentor Course",
+                    "video_tutorials_3": "Learnit Training"
+                }
             }
         };
 
+        let currentLang = localStorage.getItem('language') || 'bn';
+        const langBnBtn = document.getElementById('lang-bn');
+        const langEnBtn = document.getElementById('lang-en');
+
+        function updateContent(lang) {
+            document.documentElement.lang = lang;
+            const t = translations[lang];
+            document.querySelectorAll('[data-lang-key]').forEach(el => { el.textContent = t[el.dataset.langKey] || el.textContent; });
+            document.querySelectorAll('[data-lang-placeholder-key]').forEach(el => { el.placeholder = t[el.dataset.langPlaceholderKey] || el.placeholder; });
+            renderDynamicContent(lang);
+            langBnBtn.classList.toggle('active', lang === 'bn');
+            langEnBtn.classList.toggle('active', lang === 'en');
+            localStorage.setItem('language', lang);
+        }
+
+        langBnBtn.addEventListener('click', () => updateContent('bn'));
+        langEnBtn.addEventListener('click', () => updateContent('en'));
+
         const mainContainer = document.querySelector('main .space-y-20');
 
-        function createCard(item, color, sectionKey) {
+        function createCard(item, color, sectionKey, lang) {
+            const t = translations[lang];
+            const name = t.items[item.id] || item.id;
             const isModal = item.type === 'modal';
-             const actionButton = isModal
-                ? `<button data-modal-trigger="${item.modalId}" data-section-key="${sectionKey}" data-item-name="${item.name}" class="bg-${color}-500 text-white font-bold py-3 px-4 rounded-md text-center hover:bg-${color}-600 transition-colors duration-300 w-full">
-                       <i class="fa-solid ${item.icon} mr-2"></i> অপশন দেখুন
+            let buttonText = t.btnDownload;
+            if (sectionKey === 'ai' || sectionKey === 'tutorial') buttonText = t.btnVisitSite;
+            if (isModal) buttonText = t.btnViewOptions;
+            const actionButton = isModal
+                ? `<button data-modal-trigger="${item.modalId}" data-section-key="${sectionKey}" data-item-id="${item.id}" class="action-btn bg-${color}-500 text-white font-bold py-3 px-4 rounded-md text-center transition-colors duration-300 w-full">
+                       <i class="fa-solid ${item.icon} mr-2"></i> ${buttonText}
                    </button>`
-                : `<a href="${item.link}" target="_blank" class="bg-${color}-500 text-white font-bold py-3 px-4 rounded-md text-center hover:bg-${color}-600 transition-colors duration-300 w-full">
-                       <i class="fa-solid ${item.icon} mr-2"></i> ${sectionKey === 'ai' ? 'সাইটে যান' : 'ডাউনলোড'}
+                : `<a href="${item.link}" target="_blank" class="action-btn bg-${color}-500 text-white font-bold py-3 px-4 rounded-md text-center transition-colors duration-300 w-full block">
+                       <i class="fa-solid ${item.icon} mr-2"></i> ${buttonText}
                    </a>`;
+            const categoryTag = `<div class="absolute top-2 right-2 text-xs bg-${color}-500/20 text-${color}-300 px-2 py-1 rounded-full">${t.sections[sectionKey]}</div>`;
 
             return `
-                <div class="card-container" data-name="${item.name.toLowerCase()}">
+                <div class="card-container" data-name="${name.toLowerCase()}">
                     <div class="card rounded-lg">
+                        ${categoryTag}
                         <div class="card-content">
-                            <p class="text-lg font-medium mb-4 flex-grow">${item.name}</p>
+                            <p class="text-lg font-medium mb-4 flex-grow">${name}</p>
                             ${actionButton}
                         </div>
                     </div>
@@ -336,20 +341,18 @@
             `;
         }
 
-
-        function renderContent() {
+        function renderDynamicContent(lang) {
             mainContainer.innerHTML = '';
-            for (const key in data) {
-                const sectionData = data[key];
+            const t = translations[lang];
+            for (const key in contentData) {
+                const sectionData = contentData[key];
                 const section = document.createElement('section');
                 section.id = key;
                 section.className = 'reveal';
-                
-                let cardsHTML = sectionData.items.map(item => createCard(item, sectionData.color, key)).join('');
-                
+                let cardsHTML = sectionData.items.map(item => createCard(item, sectionData.color, key, lang)).join('');
                 section.innerHTML = `
                     <h2 class="text-3xl font-semibold mb-8 border-l-4 border-${sectionData.color}-400 pl-4 text-white flex justify-between items-center">
-                        ${sectionData.title}
+                        ${t.sections[key]}
                         <span class="text-lg font-normal text-slate-400 bg-slate-700/50 px-3 py-1 rounded-full">${sectionData.items.length}</span>
                     </h2>
                     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
@@ -361,9 +364,7 @@
             addEventListeners();
         }
 
-        // --- All event listeners function ---
         function addEventListeners() {
-            // Scroll Animation Logic
             const revealElements = document.querySelectorAll('.reveal');
             const revealObserver = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
@@ -375,15 +376,15 @@
             }, { threshold: 0.1 });
             revealElements.forEach(elem => revealObserver.observe(elem));
 
-            // 3D Card Tilt Logic
             const cards = document.querySelectorAll('.card');
             cards.forEach(card => {
                 card.addEventListener('mousemove', (e) => {
                     const rect = card.getBoundingClientRect();
                     const x = e.clientX - rect.left;
                     const y = e.clientY - rect.top;
-                    const width = rect.width;
-                    const height = rect.height;
+                    card.style.setProperty('--x', `${x}px`);
+                    card.style.setProperty('--y', `${y}px`);
+                    const width = rect.width; const height = rect.height;
                     const rotateX = -1 * ((y - height / 2) / (height / 2)) * 10;
                     const rotateY = ((x - width / 2) / (width / 2)) * 10;
                     card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.05, 1.05, 1.05)`;
@@ -392,119 +393,82 @@
                     card.style.transform = 'rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
                 });
             });
-             // Custom Cursor hover effect
             document.querySelectorAll('a, button, input[type="search"]').forEach(el => {
                 el.addEventListener('mouseenter', () => cursorOutline.classList.add('hovered'));
                 el.addEventListener('mouseleave', () => cursorOutline.classList.remove('hovered'));
             });
         }
         
-        // --- Initial render ---
-        renderContent();
+        updateContent(currentLang);
 
-        // --- Preloader Logic ---
         const preloader = document.getElementById('preloader');
-        window.addEventListener('load', () => {
-            preloader.classList.add('loaded');
-        });
+        window.addEventListener('load', () => preloader.classList.add('loaded'));
 
-        // --- Custom Cursor Logic ---
         const cursorDot = document.querySelector('.cursor-dot');
         const cursorOutline = document.querySelector('.cursor-outline');
         window.addEventListener('mousemove', (e) => {
-            const posX = e.clientX;
-            const posY = e.clientY;
-            cursorDot.style.left = `${posX}px`;
-            cursorDot.style.top = `${posY}px`;
-            cursorOutline.style.left = `${posX}px`;
-            cursorOutline.style.top = `${posY}px`;
+            cursorDot.style.left = `${e.clientX}px`; cursorDot.style.top = `${e.clientY}px`;
+            cursorOutline.style.left = `${e.clientX}px`; cursorOutline.style.top = `${e.clientY}px`;
         });
-        document.body.addEventListener('mouseleave', () => {
-            cursorDot.classList.add('hidden');
-            cursorOutline.classList.add('hidden');
-        });
-        document.body.addEventListener('mouseenter', () => {
-            cursorDot.classList.remove('hidden');
-            cursorOutline.classList.remove('hidden');
-        });
+        document.body.addEventListener('mouseleave', () => { cursorDot.classList.add('hidden'); cursorOutline.classList.add('hidden'); });
+        document.body.addEventListener('mouseenter', () => { cursorDot.classList.remove('hidden'); cursorOutline.classList.remove('hidden'); });
         
-        // --- Back to Top Button Logic ---
         const toTopBtn = document.getElementById('to-top-btn');
+        window.addEventListener('scroll', () => toTopBtn.classList.toggle('show', window.scrollY > 300));
+        
+        const scrollProgress = document.getElementById('scroll-progress');
         window.addEventListener('scroll', () => {
-            toTopBtn.classList.toggle('show', window.scrollY > 300);
+            const scrollTop = document.documentElement.scrollTop;
+            const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            scrollProgress.style.width = `${(scrollTop / scrollHeight) * 100}%`;
         });
 
-        // --- Search Logic ---
         const searchBox = document.getElementById('search-box');
         const noResults = document.getElementById('no-results');
         searchBox.addEventListener('input', (e) => {
             const searchTerm = e.target.value.toLowerCase().trim();
             let resultsFound = false;
-
             document.querySelectorAll('section').forEach(section => {
                 let sectionVisible = false;
                 section.querySelectorAll('.card-container').forEach(card => {
                     const cardName = card.dataset.name;
                     const isMatch = cardName.includes(searchTerm);
                     card.style.display = isMatch ? '' : 'none';
-                    if (isMatch) {
-                        sectionVisible = true;
-                        resultsFound = true;
-                    }
+                    if (isMatch) { sectionVisible = true; resultsFound = true; }
                 });
                 section.style.display = sectionVisible ? '' : 'none';
             });
             noResults.style.display = resultsFound ? 'none' : 'block';
         });
 
-        // --- Modal Logic ---
         const modalContainer = document.getElementById('modal-container');
         const modalContent = document.getElementById('modal-content');
         const modalTitle = document.getElementById('modal-title');
         const modalBody = document.getElementById('modal-body');
         const modalCloseBtn = document.getElementById('modal-close-btn');
 
-        function openModal(modalData, color) {
-            modalTitle.textContent = modalData.name;
-            modalBody.innerHTML = modalData.subItems.map(subItem => `
-                <a href="${subItem.link}" target="_blank" class="block w-full text-center bg-slate-700 hover:bg-${color}-500 text-white font-bold py-3 px-4 rounded-md transition-colors duration-300">
-                    ${subItem.name}
-                </a>
-            `).join('');
-
+        function openModal(itemData, color, lang) {
+            const t = translations[lang];
+            modalTitle.textContent = t.items[itemData.id];
+            modalBody.innerHTML = itemData.subItems.map(subItem => `<a href="${subItem.link}" target="_blank" class="action-btn block w-full text-center bg-slate-700 hover:bg-${color}-500 text-white font-bold py-3 px-4 rounded-md transition-colors duration-300">${t.items[subItem.id]}</a>`).join('');
             modalContainer.classList.remove('hidden');
-            setTimeout(() => { // for animation
-                modalContent.classList.remove('scale-95', 'opacity-0');
-            }, 10);
+            setTimeout(() => modalContent.classList.remove('scale-95', 'opacity-0'), 10);
         }
-
         function closeModal() {
             modalContent.classList.add('scale-95', 'opacity-0');
-            setTimeout(() => {
-                modalContainer.classList.add('hidden');
-            }, 300);
+            setTimeout(() => modalContainer.classList.add('hidden'), 300);
         }
-
         document.addEventListener('click', e => {
             const trigger = e.target.closest('[data-modal-trigger]');
             if (trigger) {
-                const sectionKey = trigger.dataset.sectionKey;
-                const itemName = trigger.dataset.itemName;
-                const sectionData = data[sectionKey];
-                const itemData = sectionData.items.find(it => it.name === itemName);
-                if (itemData) {
-                    openModal(itemData, sectionData.color);
-                }
+                const sectionKey = trigger.dataset.sectionKey; const itemId = trigger.dataset.itemId;
+                const sectionData = contentData[sectionKey];
+                const itemData = sectionData.items.find(it => it.id === itemId);
+                if (itemData) openModal(itemData, sectionData.color, currentLang);
             }
         });
-
         modalCloseBtn.addEventListener('click', closeModal);
-        modalContainer.addEventListener('click', e => {
-            if (e.target === modalContainer) {
-                closeModal();
-            }
-        });
-
+        modalContainer.addEventListener('click', e => { if (e.target === modalContainer) closeModal(); });
     });
     </script>
 </body>
